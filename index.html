@@ -4,517 +4,417 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Sairam Banavathu — Portfolio</title>
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,700;0,9..144,900;1,9..144,300&family=DM+Mono:wght@400;500&family=Manrope:wght@300;400;500;600&display=swap" rel="stylesheet"/>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --black:#050507;
-  --deep:#0a0a0f;
-  --panel:#0f0f18;
-  --gold:#d4a843;
-  --gold2:#f0c870;
-  --silver:#c8cdd8;
-  --white:#f0ede8;
-  --red:#e03030;
-  --blue:#3a6fd8;
-  --teal:#2ab4a0;
-  --bebas:'Bebas Neue',sans-serif;
-  --serif:'Crimson Pro',Georgia,serif;
-  --mono:'Space Mono',monospace;
+  --bg:#f5f4f0;--bg2:#eeede8;--panel:#ffffff;
+  --ink:#0f1214;--ink2:#3a3d42;--muted:#8a8d94;
+  --blue:#2156f4;--bsoft:rgba(33,86,244,.08);--bmid:rgba(33,86,244,.18);
+  --teal:#0f9b87;--gold:#c8922a;
+  --line:rgba(15,18,20,.08);--line2:rgba(15,18,20,.14);
+  --sh:0 2px 12px rgba(15,18,20,.06),0 8px 32px rgba(15,18,20,.05);
+  --D:'Fraunces',serif;--S:'Manrope',sans-serif;--M:'DM Mono',monospace;
+  --r:16px;
 }
-html{scroll-behavior:smooth;background:var(--black)}
-body{background:var(--black);color:var(--white);font-family:var(--serif);overflow-x:hidden;cursor:none}
-
-/* CURSOR */
-#cur{position:fixed;width:12px;height:12px;border:2px solid var(--gold);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:all .15s ease;mix-blend-mode:difference}
-#cur2{position:fixed;width:40px;height:40px;border:1px solid rgba(212,168,67,.3);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:all .3s ease}
-
-/* FILM GRAIN */
-body::before{content:'';position:fixed;inset:0;z-index:8000;pointer-events:none;opacity:.02;
-  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
-  animation:grain 8s linear infinite}
-@keyframes grain{0%,100%{transform:translate(0,0)}10%{transform:translate(-2%,-3%)}20%{transform:translate(3%,2%)}30%{transform:translate(-1%,4%)}40%{transform:translate(2%,-1%)}50%{transform:translate(-3%,3%)}60%{transform:translate(1%,-2%)}70%{transform:translate(-2%,1%)}80%{transform:translate(3%,-3%)}90%{transform:translate(-1%,2%)}}
-
-/* CINEMATIC BARS */
-.cinema-bar-top{position:fixed;top:0;left:0;right:0;height:60px;background:var(--black);z-index:700;transform:translateY(-100%);transition:transform .8s ease}
-.cinema-bar-bot{position:fixed;bottom:0;left:0;right:0;height:60px;background:var(--black);z-index:700;transform:translateY(100%);transition:transform .8s ease}
-body.cinema .cinema-bar-top,.cinema .cinema-bar-bot{transform:translateY(0)}
+html{scroll-behavior:smooth;background:var(--bg)}
+body{background:var(--bg);color:var(--ink);font-family:var(--S);overflow-x:hidden;-webkit-font-smoothing:antialiased}
 
 /* PROGRESS */
-#prog{position:fixed;top:0;left:0;height:2px;background:linear-gradient(90deg,var(--gold),var(--gold2));z-index:9000;width:0;transition:width .1s}
+#prog{position:fixed;top:0;left:0;height:2px;background:var(--blue);z-index:9000;width:0;transition:width .08s linear}
 
-/* ══════════ INTRO / LOADING ══════════ */
-#intro{position:fixed;inset:0;z-index:6000;background:var(--black);display:flex;flex-direction:column;align-items:center;justify-content:center;transition:opacity 1s ease;opacity:1}
-#intro.out{opacity:0;pointer-events:none}
-.intro-logo{font-family:var(--bebas);font-size:clamp(4rem,10vw,9rem);letter-spacing:.15em;color:transparent;-webkit-text-stroke:1px var(--gold);animation:logopulse 2s ease-in-out infinite}
-@keyframes logopulse{0%,100%{opacity:.6}50%{opacity:1}}
-.intro-sub{font-family:var(--mono);font-size:.7rem;letter-spacing:.3em;color:var(--silver);margin-top:1rem;text-transform:uppercase}
-.intro-bar{width:200px;height:1px;background:rgba(212,168,67,.2);margin-top:2.5rem;overflow:hidden;position:relative}
-.intro-bar::after{content:'';position:absolute;left:-100%;top:0;height:100%;width:100%;background:var(--gold);animation:load 2.2s ease forwards}
-@keyframes load{0%{left:-100%}100%{left:0}}
+/* NAV */
+nav{position:fixed;top:20px;left:50%;transform:translateX(-50%);z-index:500;padding:.65rem 1.4rem;background:rgba(245,244,240,.94);backdrop-filter:blur(20px);border:1px solid var(--line2);border-radius:999px;display:flex;align-items:center;gap:2rem;box-shadow:0 4px 24px rgba(15,18,20,.08);white-space:nowrap;max-width:calc(100vw - 40px)}
+.nav-name{font-family:var(--M);font-size:.72rem;color:var(--blue);font-weight:500;letter-spacing:.02em}
+.nav-links{display:flex;gap:1.6rem;list-style:none}
+.nav-links a{font-family:var(--M);font-size:.65rem;color:var(--muted);text-decoration:none;letter-spacing:.06em;text-transform:uppercase;transition:color .2s}
+.nav-links a:hover{color:var(--ink)}
+.nav-status{display:flex;align-items:center;gap:.5rem;font-family:var(--M);font-size:.6rem;color:var(--teal);letter-spacing:.05em;padding:.32rem .9rem;background:rgba(15,155,135,.08);border-radius:999px;border:1px solid rgba(15,155,135,.2)}
+.nav-dot{width:6px;height:6px;background:var(--teal);border-radius:50%;animation:breathe 2s infinite;flex-shrink:0}
 
-/* ══════════ NAV ══════════ */
-nav{position:fixed;top:0;left:0;right:0;z-index:500;padding:1.2rem 3rem;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid rgba(212,168,67,.1)}
-nav::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(5,5,7,.95),rgba(5,5,7,.7));backdrop-filter:blur(20px);z-index:-1}
-.nav-name{font-family:var(--bebas);font-size:1.4rem;letter-spacing:.2em;color:var(--gold)}
-.nav-links{display:flex;gap:2.5rem;list-style:none}
-.nav-links a{font-family:var(--mono);font-size:.6rem;color:var(--silver);text-decoration:none;letter-spacing:.15em;text-transform:uppercase;transition:color .2s;cursor:none}
-.nav-links a:hover{color:var(--gold)}
-.nav-status{font-family:var(--mono);font-size:.58rem;color:var(--teal);letter-spacing:.1em;display:flex;align-items:center;gap:.5rem}
-.nav-status::before{content:'';width:5px;height:5px;background:var(--teal);border-radius:50%;box-shadow:0 0 8px var(--teal);animation:breathe 2s infinite}
-@keyframes breathe{0%,100%{opacity:1}50%{opacity:.3}}
-
-/* ══════════ SCENE SYSTEM ══════════ */
-.scene{min-height:100vh;position:relative;display:flex;align-items:center;overflow:hidden}
-
-/* ══════════ SCENE 0 — HERO ══════════ */
-#scene-hero{background:var(--black);justify-content:center;padding:0}
-.hero-bg{position:absolute;inset:0;background:
-  radial-gradient(ellipse 80% 60% at 50% 100%, rgba(212,168,67,.06) 0%, transparent 70%),
-  radial-gradient(ellipse 40% 40% at 20% 50%, rgba(58,111,216,.05) 0%, transparent 60%);}
-.hero-content{position:relative;z-index:2;width:100%;max-width:1400px;margin:0 auto;padding:0 4rem;display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;padding-top:80px}
-.hero-text{opacity:0;transform:translateY(40px);transition:all 1.2s cubic-bezier(.16,1,.3,1)}
+/* HERO */
+#scene-hero{min-height:100vh;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;background:var(--bg)}
+.hblob{position:absolute;border-radius:50%;pointer-events:none}
+.hblob1{width:700px;height:700px;background:radial-gradient(circle,rgba(33,86,244,.07),transparent 70%);top:-150px;right:-180px}
+.hblob2{width:500px;height:500px;background:radial-gradient(circle,rgba(15,155,135,.06),transparent 70%);bottom:-100px;left:-100px}
+.hero-inner{position:relative;z-index:2;width:100%;max-width:1200px;margin:0 auto;padding:100px 3rem 60px;display:grid;grid-template-columns:1fr 400px;gap:4rem;align-items:center}
+.hero-text{opacity:0;transform:translateY(24px);transition:opacity .9s ease,transform .9s ease}
 .hero-text.vis{opacity:1;transform:none}
-.hero-eyebrow{font-family:var(--mono);font-size:.65rem;color:var(--gold);letter-spacing:.25em;text-transform:uppercase;margin-bottom:1.5rem}
-.hero-title{font-family:var(--bebas);font-size:clamp(5rem,9vw,8.5rem);line-height:.95;letter-spacing:.03em;margin-bottom:1.5rem}
-.hero-title span{display:block;color:var(--gold)}
-.hero-title em{display:block;color:transparent;-webkit-text-stroke:1px rgba(240,200,112,.5);font-style:normal}
-.hero-desc{font-family:var(--serif);font-size:1.15rem;line-height:1.7;color:var(--silver);max-width:420px;font-weight:300}
-.hero-ctas{display:flex;gap:1.5rem;margin-top:2.5rem;flex-wrap:wrap}
-.btn-gold{font-family:var(--mono);font-size:.65rem;letter-spacing:.15em;text-transform:uppercase;padding:.9rem 2rem;border:1px solid var(--gold);color:var(--gold);background:transparent;text-decoration:none;transition:all .3s;cursor:none;position:relative;overflow:hidden}
-.btn-gold::before{content:'';position:absolute;inset:0;background:var(--gold);transform:translateX(-101%);transition:transform .3s}
-.btn-gold:hover::before{transform:translateX(0)}
-.btn-gold:hover{color:var(--black)}
-.btn-ghost{font-family:var(--mono);font-size:.65rem;letter-spacing:.15em;text-transform:uppercase;padding:.9rem 2rem;border:1px solid rgba(200,205,216,.2);color:var(--silver);background:transparent;text-decoration:none;transition:all .3s;cursor:none}
-.btn-ghost:hover{border-color:var(--silver);color:var(--white)}
+.hero-eyebrow{font-family:var(--M);font-size:.65rem;color:var(--teal);letter-spacing:.14em;text-transform:uppercase;margin-bottom:1.6rem;display:flex;align-items:center;gap:.8rem}
+.hero-eyebrow::before{content:'';width:24px;height:1px;background:var(--teal)}
+.hero-title{font-family:var(--D);font-size:clamp(3.5rem,7vw,6rem);line-height:.95;letter-spacing:-.02em;margin-bottom:1.8rem;font-weight:900}
+.n1{display:block;color:var(--ink)}
+.n2{display:block;color:var(--blue);font-style:italic;font-weight:300}
+.hero-desc{font-size:1.05rem;line-height:1.85;color:var(--ink2);max-width:500px;font-weight:300}
+.hero-ctas{display:flex;gap:1rem;margin-top:2.5rem;flex-wrap:wrap}
+.btn-p{font-family:var(--M);font-size:.65rem;letter-spacing:.08em;text-transform:uppercase;padding:.85rem 1.8rem;border:none;border-radius:999px;background:var(--ink);color:#fff;box-shadow:0 4px 20px rgba(15,18,20,.2);transition:all .22s;cursor:pointer;text-decoration:none;display:inline-block}
+.btn-p:hover{background:var(--blue);transform:translateY(-2px);box-shadow:0 8px 28px rgba(33,86,244,.3)}
+.btn-s{font-family:var(--M);font-size:.65rem;letter-spacing:.08em;text-transform:uppercase;padding:.85rem 1.8rem;border:1px solid var(--line2);border-radius:999px;background:transparent;color:var(--ink);transition:all .22s;cursor:pointer;text-decoration:none;display:inline-block}
+.btn-s:hover{background:var(--ink);color:#fff;transform:translateY(-2px)}
+.hero-stats{display:flex;gap:2.5rem;margin-top:2.2rem;padding-top:2rem;border-top:1px solid var(--line)}
+.hs-num{font-family:var(--D);font-size:2.2rem;color:var(--ink);font-weight:900;line-height:1}
+.hs-lbl{font-family:var(--M);font-size:.58rem;color:var(--muted);letter-spacing:.1em;text-transform:uppercase;margin-top:.3rem}
+.hero-photo{opacity:0;transform:translateX(40px);transition:opacity 1.1s ease .3s,transform 1.1s ease .3s}
+.hero-photo.vis{opacity:1;transform:none}
+.photo-frame{position:relative;width:100%;background:var(--bg2);border-radius:28px;overflow:hidden;border:1px solid var(--line2)}
+.photo-frame img{width:100%;display:block;min-height:340px;object-fit:cover}
+.photo-cap{position:absolute;bottom:1rem;left:1rem;font-family:var(--M);font-size:.6rem;color:var(--muted);background:rgba(245,244,240,.92);padding:.35rem .7rem;border-radius:8px;border:1px solid var(--line)}
+.scroll-hint{position:absolute;bottom:2.5rem;left:50%;transform:translateX(-50%);font-family:var(--M);font-size:.6rem;letter-spacing:.12em;color:var(--muted);text-transform:uppercase;display:flex;flex-direction:column;align-items:center;gap:.7rem;opacity:0;animation:fadeup 1s 2.5s ease forwards}
+.scroll-line{width:1px;height:44px;background:linear-gradient(to bottom,transparent,var(--blue));animation:scrollline 1.8s ease-in-out infinite}
 
-/* PHOTO SIDE */
-.hero-photo-wrap{position:relative;opacity:0;transform:translateX(60px);transition:all 1.4s cubic-bezier(.16,1,.3,1) .3s}
-.hero-photo-wrap.vis{opacity:1;transform:none}
-.photo-frame{position:relative;width:100%;max-width:420px;margin:0 auto}
-.photo-frame::before{content:'';position:absolute;inset:-2px;background:linear-gradient(135deg,var(--gold),transparent,var(--blue));z-index:0;border-radius:2px}
-.photo-frame img{position:relative;z-index:1;width:100%;display:block;border-radius:1px;filter:contrast(1.08) brightness(1.02)}
-.photo-frame::after{content:'';position:absolute;inset:0;z-index:2;background:linear-gradient(180deg,transparent 60%,rgba(5,5,7,.8));pointer-events:none}
-.photo-corner{position:absolute;width:20px;height:20px;z-index:3}
-.photo-corner.tl{top:-8px;left:-8px;border-top:2px solid var(--gold);border-left:2px solid var(--gold)}
-.photo-corner.tr{top:-8px;right:-8px;border-top:2px solid var(--gold);border-right:2px solid var(--gold)}
-.photo-corner.bl{bottom:-8px;left:-8px;border-bottom:2px solid var(--gold);border-left:2px solid var(--gold)}
-.photo-corner.br{bottom:-8px;right:-8px;border-bottom:2px solid var(--gold);border-right:2px solid var(--gold)}
-.photo-caption{position:absolute;bottom:1rem;left:1rem;z-index:4;font-family:var(--mono);font-size:.55rem;color:rgba(212,168,67,.8);letter-spacing:.12em;text-transform:uppercase}
+/* LAYOUT */
+.divider{height:1px;background:var(--line);margin:0 3rem}
+.section{padding:7rem 0}
+.section-alt{background:var(--bg2)}
+.wrap{max-width:1200px;margin:0 auto;padding:0 3rem}
 
-/* SCROLL HINT */
-.scroll-hint{position:absolute;bottom:2.5rem;left:50%;transform:translateX(-50%);font-family:var(--mono);font-size:.55rem;letter-spacing:.2em;color:rgba(200,205,216,.4);text-transform:uppercase;display:flex;flex-direction:column;align-items:center;gap:.8rem;animation:fadeup 2s 3s ease both}
-@keyframes fadeup{from{opacity:0;transform:translateX(-50%) translateY(10px)}to{opacity:1;transform:translateX(-50%) translateY(0)}}
-.scroll-line{width:1px;height:50px;background:linear-gradient(180deg,rgba(212,168,67,.6),transparent);animation:scrollline 2s ease-in-out infinite}
-@keyframes scrollline{0%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}51%{transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
+/* ─────────────────────────────────────────────────────────────
+   NARRATED SECTIONS
+   Grid: [190px narrator column] [1fr content column]
+   The narrator column holds BOTH the character AND the bubble
+   stacked vertically inside it — so the bubble CANNOT escape
+   into the content column.
+───────────────────────────────────────────────────────────── */
+.narrated{display:grid;grid-template-columns:190px 1fr;column-gap:4rem;align-items:start}
 
-/* ══════════ NARRATOR SYSTEM ══════════ */
-.narrator-scene{padding:6rem 4rem;max-width:1400px;margin:0 auto;width:100%;display:grid;grid-template-columns:280px 1fr;gap:6rem;align-items:start}
-.narrator-left{position:sticky;top:120px}
+/* Left sticky column — flex column so char + bubble stack */
+.narrator-left{
+  position:sticky;top:130px;
+  display:flex;flex-direction:column;gap:.9rem;
+  /* Width capped to grid column — bubble cannot escape */
+  min-width:0;overflow:visible
+}
 
-/* SVG CHARACTER */
-.char-wrap{width:200px;height:280px;position:relative;margin:0 auto}
-.char-wrap svg{width:100%;height:100%}
-/* Speech bubble */
-.speech-bubble{position:absolute;top:0;left:210px;width:190px;max-width:190px;background:rgba(15,15,24,.97);border:1px solid rgba(212,168,67,.4);padding:.75rem .9rem;border-radius:4px 4px 4px 0;opacity:0;transform:scale(.9) translateY(5px);transition:all .5s cubic-bezier(.16,1,.3,1);pointer-events:none;z-index:10;box-shadow:0 8px 32px rgba(0,0,0,.6)}
-.speech-bubble::before{content:'';position:absolute;left:-8px;top:20px;width:0;height:0;border-top:8px solid transparent;border-bottom:8px solid transparent;border-right:8px solid rgba(212,168,67,.3)}
-.speech-bubble::after{content:'';position:absolute;left:-6px;top:21px;width:0;height:0;border-top:7px solid transparent;border-bottom:7px solid transparent;border-right:7px solid rgba(15,15,24,.95)}
-.speech-bubble.show{opacity:1;transform:scale(1) translateY(0)}
-.speech-text{font-family:var(--serif);font-size:.78rem;line-height:1.55;color:var(--silver);font-style:italic}
-.char-name{text-align:center;font-family:var(--mono);font-size:.58rem;color:var(--gold);letter-spacing:.15em;text-transform:uppercase;margin-top:.8rem}
-.char-role{text-align:center;font-family:var(--mono);font-size:.5rem;color:var(--silver);letter-spacing:.1em;opacity:.6;margin-top:.3rem}
+/* Character SVG wrapper */
+.char-wrap{width:140px}
+.char-wrap svg{width:140px;height:auto;display:block;filter:drop-shadow(0 8px 16px rgba(0,0,0,.1))}
+.char-name{font-family:var(--M);font-size:.65rem;color:var(--ink);letter-spacing:.05em;margin-top:.4rem;font-weight:500}
+.char-role{font-family:var(--M);font-size:.58rem;color:var(--muted);letter-spacing:.05em;margin-top:.1rem}
 
-/* SECTION CONTENT */
-.section-content{opacity:0;transform:translateY(30px);transition:all 1s cubic-bezier(.16,1,.3,1)}
-.section-content.vis{opacity:1;transform:none}
-.scene-label{font-family:var(--mono);font-size:.58rem;color:var(--gold);letter-spacing:.3em;text-transform:uppercase;margin-bottom:1.2rem;display:flex;align-items:center;gap:1rem}
-.scene-label::after{content:'';flex:1;height:1px;background:linear-gradient(90deg,rgba(212,168,67,.4),transparent)}
-.scene-heading{font-family:var(--bebas);font-size:clamp(2.8rem,5vw,4.5rem);letter-spacing:.05em;line-height:1;margin-bottom:1.5rem}
-.scene-heading .accent{color:var(--gold)}
-.scene-body{font-family:var(--serif);font-size:1.05rem;line-height:1.85;color:var(--silver);font-weight:300;max-width:640px}
-.scene-body + .scene-body{margin-top:1rem}
+/* Speech bubble — BELOW the character in the left column */
+.speech-bubble{
+  background:var(--panel);
+  border:1px solid var(--line2);
+  border-radius:12px;
+  border-top-left-radius:4px;
+  padding:.85rem 1rem;
+  box-shadow:var(--sh);
+  opacity:0;
+  transform:translateY(5px);
+  transition:opacity .45s ease,transform .45s ease;
+  position:relative;
+  /* Constrain width to the left column — never wider than narrator */
+  width:100%;max-width:190px
+}
+/* upward tail toward character */
+.speech-bubble::before{content:'';position:absolute;left:18px;top:-7px;border-left:6px solid transparent;border-right:6px solid transparent;border-bottom:7px solid var(--line2)}
+.speech-bubble::after{content:'';position:absolute;left:19px;top:-5px;border-left:5px solid transparent;border-right:5px solid transparent;border-bottom:6px solid var(--panel)}
+.speech-bubble.show{opacity:1;transform:translateY(0)}
+.speech-text{font-family:var(--S);font-size:.75rem;line-height:1.6;color:var(--ink2);font-weight:400}
+
+/* Mouth anim */
+.char-body .mouth-open{opacity:0}
+
+/* SECTION TEXT */
+.scene-label{font-family:var(--M);font-size:.6rem;color:var(--muted);letter-spacing:.2em;text-transform:uppercase;margin-bottom:1.4rem;display:flex;align-items:center;gap:1rem}
+.scene-label::after{content:'';flex:1;height:1px;background:var(--line2)}
+.scene-heading{font-family:var(--D);font-size:clamp(2.8rem,5vw,4.2rem);letter-spacing:-.02em;line-height:.95;margin-bottom:1.8rem;font-weight:900;color:var(--ink)}
+.ac{color:var(--blue);font-style:italic;font-weight:300}
+.scene-body{font-size:1rem;line-height:1.8;color:var(--ink2);font-weight:300;max-width:660px}
+
+/* STATS */
+.stats-row{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem;margin-top:2.5rem}
+.stat-block{background:var(--panel);border:1px solid var(--line);padding:1.6rem;border-radius:var(--r);text-align:center;opacity:0;transform:translateY(12px);transition:opacity .6s ease,transform .6s ease}
+.stat-block.vis{opacity:1;transform:none}
+.stat-num{font-family:var(--D);font-size:2.8rem;color:var(--blue);font-weight:900;line-height:1}
+.stat-label{font-family:var(--M);font-size:.58rem;color:var(--muted);letter-spacing:.12em;text-transform:uppercase;margin-top:.5rem}
 
 /* TIMELINE */
-.timeline{margin-top:3rem;display:flex;flex-direction:column;gap:0}
-.tl-item{display:grid;grid-template-columns:80px 1fr;gap:2rem;position:relative;padding-bottom:3rem;opacity:0;transform:translateY(20px);transition:all .8s cubic-bezier(.16,1,.3,1)}
+.timeline{margin-top:.5rem}
+.tl-item{display:grid;grid-template-columns:72px 1fr;gap:1.5rem;position:relative;padding-bottom:2.5rem;opacity:0;transform:translateY(12px);transition:opacity .7s ease,transform .7s ease}
 .tl-item.vis{opacity:1;transform:none}
-.tl-item::before{content:'';position:absolute;left:38px;top:28px;bottom:0;width:1px;background:linear-gradient(180deg,rgba(212,168,67,.3),transparent)}
+.tl-item::before{content:'';position:absolute;left:35px;top:32px;bottom:0;width:1px;background:var(--line2)}
 .tl-item:last-child::before{display:none}
-.tl-year{font-family:var(--bebas);font-size:1rem;color:var(--gold);letter-spacing:.1em;padding-top:.3rem;line-height:1.2}
-.tl-dot{position:absolute;left:-56px;top:6px;width:13px;height:13px;border:2px solid var(--gold);background:var(--black);border-radius:50%;box-shadow:0 0 12px rgba(212,168,67,.4);z-index:1}
-.tl-company{font-family:var(--bebas);font-size:1.3rem;letter-spacing:.08em;color:var(--white);margin-bottom:.2rem}
-.tl-role{font-family:var(--mono);font-size:.58rem;color:var(--gold);letter-spacing:.12em;text-transform:uppercase;margin-bottom:.7rem}
-.tl-desc{font-family:var(--serif);font-size:.95rem;line-height:1.7;color:var(--silver);font-weight:300}
-.tl-tags{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:.8rem}
-.tl-tag{font-family:var(--mono);font-size:.5rem;padding:.3rem .7rem;border:1px solid rgba(212,168,67,.2);color:rgba(212,168,67,.7);letter-spacing:.1em;text-transform:uppercase;cursor:pointer;transition:all .3s ease}
-.tl-tag:hover{border-color:var(--gold);color:var(--gold);background:rgba(212,168,67,.1);box-shadow:0 0 8px rgba(212,168,67,.3)}
+.tl-year{font-family:var(--M);font-size:.62rem;color:var(--muted);letter-spacing:.06em;padding-top:.4rem;line-height:1.4;text-transform:uppercase}
+.tl-body{position:relative;padding-left:1.2rem}
+.tl-dot{position:absolute;left:-54px;top:8px;width:8px;height:8px;border:2px solid var(--blue);background:var(--bg);border-radius:50%}
+.tl-company{font-family:var(--D);font-size:1.5rem;color:var(--ink);font-weight:700;letter-spacing:-.01em;margin-bottom:.2rem}
+.tl-role{font-family:var(--M);font-size:.62rem;color:var(--teal);letter-spacing:.04em;margin-bottom:.7rem}
+.tl-desc{font-size:.92rem;line-height:1.75;color:var(--ink2);font-weight:300}
+.tl-tags{display:flex;flex-wrap:wrap;gap:.45rem;margin-top:.9rem}
+.tl-tag{font-family:var(--M);font-size:.58rem;padding:.28rem .65rem;background:var(--bsoft);border:1px solid var(--bmid);color:var(--blue);letter-spacing:.04em;border-radius:8px}
 
-/* SKILLS GRID */
-.skills-grid{margin-top:2.5rem;display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1.5rem}
-.skill-card{background:rgba(15,15,24,.8);border:1px solid rgba(212,168,67,.1);padding:1.5rem;position:relative;overflow:hidden;opacity:0;transform:translateY(20px);transition:all .7s cubic-bezier(.16,1,.3,1)}
+/* SKILLS */
+.skills-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1rem;margin-top:.5rem}
+.skill-card{background:var(--panel);border:1px solid var(--line);padding:1.4rem 1.5rem;border-radius:var(--r);opacity:0;transform:translateY(12px);transition:opacity .6s ease,transform .6s ease;position:relative;overflow:hidden}
 .skill-card.vis{opacity:1;transform:none}
-.skill-card::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(212,168,67,.04),transparent);pointer-events:none}
-.skill-card:hover{border-color:rgba(212,168,67,.3);background:rgba(20,20,30,.9)}
-.skill-cat{font-family:var(--mono);font-size:.55rem;color:var(--gold);letter-spacing:.2em;text-transform:uppercase;margin-bottom:1rem}
-.skill-list{display:flex;flex-wrap:wrap;gap:.5rem}
-.skill-pill{font-family:var(--mono);font-size:.58rem;padding:.35rem .8rem;background:rgba(212,168,67,.06);border:1px solid rgba(212,168,67,.15);color:var(--silver);letter-spacing:.05em}
-
-/* STATS ROW */
-.stats-row{display:grid;grid-template-columns:repeat(3,1fr);gap:2rem;margin-top:3rem}
-.stat-block{text-align:center;padding:2rem;border:1px solid rgba(212,168,67,.1);background:rgba(15,15,24,.5);opacity:0;transform:translateY(20px);transition:all .7s cubic-bezier(.16,1,.3,1)}
-.stat-block.vis{opacity:1;transform:none}
-.stat-num{font-family:var(--bebas);font-size:3.5rem;color:var(--gold);letter-spacing:.05em;line-height:1}
-.stat-label{font-family:var(--mono);font-size:.55rem;color:var(--silver);letter-spacing:.15em;text-transform:uppercase;margin-top:.5rem;opacity:.7}
+.skill-card::after{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--blue);transform:scaleX(0);transform-origin:left;transition:transform .3s ease}
+.skill-card:hover::after{transform:scaleX(1)}
+.skill-cat{font-family:var(--M);font-size:.6rem;color:var(--blue);letter-spacing:.14em;text-transform:uppercase;margin-bottom:.9rem;font-weight:500}
+.skill-list{display:flex;flex-wrap:wrap;gap:.4rem}
+.skill-pill{font-family:var(--M);font-size:.6rem;padding:.3rem .7rem;background:var(--bg);border:1px solid var(--line2);color:var(--ink2);border-radius:8px}
 
 /* EDUCATION */
-.edu-card{background:rgba(15,15,24,.8);border:1px solid rgba(212,168,67,.15);padding:2rem;display:grid;grid-template-columns:auto 1fr;gap:2rem;align-items:start;margin-top:1.5rem;opacity:0;transform:translateX(-20px);transition:all .8s cubic-bezier(.16,1,.3,1)}
+.edu-card{background:var(--panel);border:1px solid var(--line);padding:1.8rem;display:grid;grid-template-columns:52px 1fr;gap:1.4rem;align-items:start;margin-top:1.2rem;opacity:0;transform:translateX(-16px);transition:opacity .7s ease,transform .7s ease;border-radius:var(--r)}
 .edu-card.vis{opacity:1;transform:none}
-.edu-icon{width:48px;height:48px;border:1px solid rgba(212,168,67,.3);display:flex;align-items:center;justify-content:center;font-size:1.4rem;flex-shrink:0}
-.edu-deg{font-family:var(--bebas);font-size:1.2rem;letter-spacing:.06em;margin-bottom:.3rem}
-.edu-school{font-family:var(--serif);font-size:.95rem;color:var(--gold);font-style:italic;margin-bottom:.4rem}
-.edu-period{font-family:var(--mono);font-size:.55rem;color:var(--silver);letter-spacing:.1em;opacity:.7}
+.edu-icon{width:52px;height:52px;background:var(--bsoft);border:1px solid var(--bmid);display:flex;align-items:center;justify-content:center;font-size:1.3rem;flex-shrink:0;border-radius:14px}
+.edu-deg{font-family:var(--D);font-size:1.1rem;color:var(--ink);font-weight:700;margin-bottom:.3rem}
+.edu-school{font-size:.9rem;color:var(--blue);margin-bottom:.3rem;font-style:italic}
+.edu-period{font-family:var(--M);font-size:.6rem;color:var(--muted);letter-spacing:.1em;text-transform:uppercase}
+.cert-badge{display:inline-flex;align-items:center;gap:1rem;padding:1rem 1.5rem;border:1px solid rgba(200,146,42,.25);margin-top:1.2rem;background:rgba(200,146,42,.06);opacity:0;transform:translateY(8px);transition:opacity .7s .3s ease,transform .7s .3s ease;border-radius:var(--r)}
+.cert-badge.vis{opacity:1;transform:none}
+.cert-icon{font-size:1.4rem;color:var(--gold)}
+.cert-text{font-family:var(--M);font-size:.6rem;color:var(--gold);letter-spacing:.1em;text-transform:uppercase;line-height:1.6}
 
-/* CERT */
-.cert-badge{display:inline-flex;align-items:center;gap:1rem;padding:1rem 1.5rem;border:1px solid var(--gold);margin-top:1.5rem;background:rgba(212,168,67,.05);opacity:0;transition:opacity .8s .3s}
-.cert-badge.vis{opacity:1}
-.cert-icon{font-size:1.5rem}
-.cert-text{font-family:var(--mono);font-size:.6rem;color:var(--gold);letter-spacing:.1em;text-transform:uppercase;line-height:1.6}
-
-/* CONTACT */
-#scene-contact{background:linear-gradient(180deg,var(--deep) 0%,var(--black) 100%);padding:6rem 4rem 4rem}
-.contact-inner{max-width:1400px;margin:0 auto}
-.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:6rem;align-items:start;margin-top:3rem}
-.contact-big{font-family:var(--bebas);font-size:clamp(3.5rem,6vw,5.5rem);line-height:.95;letter-spacing:.03em;margin-bottom:2rem}
-.contact-big span{color:var(--gold)}
-.contact-links{display:flex;flex-direction:column;gap:1.2rem}
-.contact-link{display:flex;align-items:center;gap:1.5rem;padding:1.2rem 1.5rem;border:1px solid rgba(212,168,67,.1);background:rgba(15,15,24,.5);text-decoration:none;transition:all .3s;color:var(--white)}
-.contact-link:hover{border-color:var(--gold);background:rgba(212,168,67,.05);transform:translateX(8px)}
-.cl-icon{width:36px;height:36px;border:1px solid rgba(212,168,67,.3);display:flex;align-items:center;justify-content:center;font-size:.9rem;flex-shrink:0}
-.cl-label{font-family:var(--mono);font-size:.55rem;color:var(--silver);letter-spacing:.12em;text-transform:uppercase;margin-bottom:.3rem;opacity:.6}
-.cl-value{font-family:var(--serif);font-size:.95rem;color:var(--white)}
-.footer-bar{margin-top:5rem;padding-top:2rem;border-top:1px solid rgba(212,168,67,.1);display:flex;justify-content:space-between;align-items:center}
-.footer-name{font-family:var(--bebas);font-size:1.2rem;letter-spacing:.2em;color:var(--gold)}
-.footer-copy{font-family:var(--mono);font-size:.55rem;color:var(--silver);opacity:.4;letter-spacing:.1em}
-
-/* SCENE DIVIDERS */
-.scene-divider{height:1px;background:linear-gradient(90deg,transparent,rgba(212,168,67,.2),transparent);margin:0 4rem}
-
-/* SECTION BG VARIANTS */
-#scene-about{background:var(--deep)}
-#scene-exp{background:var(--black)}
-#scene-skills{background:var(--deep)}
-#scene-edu{background:var(--black)}
-
-/* CHAR ANIMATIONS */
-@keyframes charIdle{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
-@keyframes charTalk{0%,100%{transform:scaleY(1)}25%{transform:scaleY(1.03) translateY(-2px)}75%{transform:scaleY(.98) translateY(1px)}}
-.char-body{animation:charIdle 3s ease-in-out infinite}
-.char-body.talking{animation:charTalk .4s ease-in-out infinite}
-.mouth-open{display:none}.mouth-closed{display:block}
-.char-body.talking .mouth-open{display:block}.char-body.talking .mouth-closed{display:none}
+/* CONTACT — same light background as rest of page */
+#scene-contact{background:var(--bg2);padding:7rem 0 4rem}
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:start;margin-top:3rem}
+.contact-big{font-family:var(--D);font-size:clamp(3rem,6vw,5rem);line-height:.92;letter-spacing:-.02em;margin-bottom:2rem;color:var(--ink);font-weight:900}
+.c-em{color:var(--blue);font-style:italic;font-weight:300}
+.contact-desc{font-size:1rem;line-height:1.8;color:var(--ink2);font-weight:300;max-width:420px}
+.contact-links{display:flex;flex-direction:column;gap:.8rem}
+.contact-link{display:flex;align-items:center;gap:1.4rem;padding:1.2rem 1.5rem;border:1px solid var(--line2);background:var(--panel);transition:all .22s;color:inherit;text-decoration:none;border-radius:var(--r);box-shadow:0 2px 8px rgba(15,18,20,.04)}
+.contact-link:hover{border-color:var(--bmid);transform:translateY(-2px);box-shadow:var(--sh)}
+.cl-icon{width:38px;height:38px;background:var(--bsoft);border:1px solid var(--bmid);display:flex;align-items:center;justify-content:center;font-size:.85rem;flex-shrink:0;color:var(--blue);border-radius:10px;font-family:var(--M);font-weight:500}
+.cl-label{font-family:var(--M);font-size:.58rem;color:var(--muted);letter-spacing:.12em;text-transform:uppercase;margin-bottom:.25rem}
+.cl-value{font-size:.92rem;color:var(--ink)}
+.cl-loc{display:flex;align-items:center;gap:1.4rem;padding:1rem 1.5rem;background:var(--panel);border:1px solid var(--line2);border-radius:var(--r)}
+.footer-bar{margin-top:5rem;padding-top:2rem;border-top:1px solid var(--line2);display:flex;justify-content:space-between;align-items:center}
+.footer-name{font-family:var(--D);font-size:1.1rem;color:var(--blue);font-style:italic}
+.footer-copy{font-family:var(--M);font-size:.55rem;color:var(--muted);letter-spacing:.1em;opacity:.5}
 
 /* REVEAL */
-.reveal{opacity:0;transform:translateY(25px);transition:all .9s cubic-bezier(.16,1,.3,1)}
+.reveal{opacity:0;transform:translateY(14px);transition:opacity .7s ease,transform .7s ease}
 .reveal.vis{opacity:1;transform:none}
 
-/* TYPEWRITER */
-.typewriter{display:inline}
-.typewriter::after{content:'|';animation:blink .7s step-end infinite;color:var(--gold)}
-@keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
+/* KEYFRAMES */
+@keyframes breathe{0%,100%{opacity:1}50%{opacity:.35}}
+@keyframes fadeup{from{opacity:0;transform:translateX(-50%) translateY(8px)}to{opacity:1;transform:translateX(-50%) translateY(0)}}
+@keyframes scrollline{0%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}51%{transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
 
-@media(max-width:900px){
-  .hero-content{grid-template-columns:1fr;padding:1.5rem;gap:2rem}
-  .hero-photo-wrap{order:-1;max-width:280px;margin:0 auto}
-  .narrator-scene{grid-template-columns:1fr;gap:2rem;padding:3rem 1.5rem}
-  .narrator-left{position:relative;top:0;display:flex;align-items:flex-start;gap:1.5rem}
-  .char-wrap{width:80px;height:110px;flex-shrink:0}
-  .speech-bubble{position:relative;top:0;left:0;margin-top:.5rem;width:auto}
-  .stats-row{grid-template-columns:1fr}
+/* ── RESPONSIVE ── */
+
+/* Tablet ≤1100px: narrator row becomes horizontal [char | bubble], content below */
+@media(max-width:1100px){
+  .hero-inner{grid-template-columns:1fr;gap:3rem}
+  .hero-photo{order:-1;max-width:300px;margin:0 auto}
+
+  .narrated{grid-template-columns:1fr;row-gap:2rem}
+
+  .narrator-left{
+    position:relative;top:0;
+    flex-direction:row;align-items:flex-start;gap:1rem
+  }
+  .char-wrap{width:90px;flex-shrink:0}
+  .char-wrap svg{width:90px}
+
+  /* Bubble sits to the RIGHT of character — left-pointing tail */
+  .speech-bubble{flex:1;width:auto;max-width:none;border-top-left-radius:12px;border-top-right-radius:4px}
+  .speech-bubble::before{left:auto;right:100%;top:14px;border-left:none;border-right:7px solid var(--line2);border-top:6px solid transparent;border-bottom:6px solid transparent}
+  .speech-bubble::after{left:auto;right:calc(100% - 1px);top:15px;border-left:none;border-right:6px solid var(--panel);border-top:5px solid transparent;border-bottom:5px solid transparent}
+}
+
+/* Mobile ≤768px */
+@media(max-width:768px){
+  nav{gap:1rem;padding:.6rem 1rem}
+  .nav-links,.nav-status{display:none}
+  .hero-inner{padding:90px 1.5rem 40px}
+  .wrap{padding:0 1.5rem}
+  .divider{margin:0 1.5rem}
+  .stats-row{grid-template-columns:repeat(3,1fr);gap:.8rem}
   .skills-grid{grid-template-columns:1fr}
   .contact-grid{grid-template-columns:1fr;gap:3rem}
-  nav{padding:1rem 1.5rem}
-  .nav-links{gap:1.5rem}
+
+  /* Stack narrator vertically again — upward tail */
+  .narrator-left{flex-direction:column}
+  .char-wrap{width:110px}
+  .char-wrap svg{width:110px}
+  .speech-bubble{width:100%;max-width:none;border-radius:12px;border-top-left-radius:4px}
+  .speech-bubble::before{left:18px;top:-7px;right:auto;border-left:6px solid transparent;border-right:6px solid transparent;border-bottom:7px solid var(--line2);border-top:none}
+  .speech-bubble::after{left:19px;top:-5px;right:auto;border-left:5px solid transparent;border-right:5px solid transparent;border-bottom:6px solid var(--panel);border-top:none}
+}
+
+@media(max-width:480px){
+  .stats-row{grid-template-columns:1fr}
+  .hero-title{font-size:3rem}
 }
 </style>
 </head>
 <body>
-
-<div id="cur"></div>
-<div id="cur2"></div>
 <div id="prog"></div>
-<div class="cinema-bar-top"></div>
-<div class="cinema-bar-bot"></div>
-
-<!-- INTRO -->
-<div id="intro">
-  <div class="intro-logo">SB</div>
-  <div class="intro-sub">Loading Portfolio</div>
-  <div class="intro-bar"></div>
-</div>
 
 <!-- NAV -->
 <nav>
   <div class="nav-name">Sairam Banavathu</div>
   <ul class="nav-links">
-    <li><a href="#scene-about" cursor="none">About</a></li>
+    <li><a href="#scene-about">About</a></li>
     <li><a href="#scene-exp">Experience</a></li>
     <li><a href="#scene-skills">Skills</a></li>
     <li><a href="#scene-edu">Education</a></li>
     <li><a href="#scene-contact">Contact</a></li>
   </ul>
-  <div class="nav-status">Available · Meta · NM</div>
+  <div class="nav-status"><span class="nav-dot"></span>Open to opportunities</div>
 </nav>
 
-<!-- ══════ SCENE 0: HERO ══════ -->
-<section class="scene" id="scene-hero">
-  <div class="hero-bg"></div>
-  <div class="hero-content">
+<!-- HERO -->
+<section id="scene-hero">
+  <div class="hblob hblob1"></div>
+  <div class="hblob hblob2"></div>
+  <div class="hero-inner">
     <div class="hero-text" id="hero-text">
       <div class="hero-eyebrow">Reliability Engineer · Infrastructure</div>
-      <h1 class="hero-title">
-        <span>Sairam</span>
-        <em>Banavathu</em>
-      </h1>
-      <p class="hero-desc">Building systems that never sleep — at Meta, where infrastructure meets artistry.</p>
+      <h1 class="hero-title"><span class="n1">Sairam</span><span class="n2">Banavathu</span></h1>
+      <p class="hero-desc">Reliability Engineer focused on backend systems, automation, and infrastructure at scale. I build dependable platforms, improve operational efficiency, and deliver clean engineering solutions that support real business impact.</p>
       <div class="hero-ctas">
-        <a href="#scene-about" class="btn-gold">My Story</a>
-        <a href="#scene-contact" class="btn-ghost">Let's Talk</a>
+        <a href="#scene-about" class="btn-p">My Story</a>
+        <a href="#scene-contact" class="btn-s">Let's Talk</a>
+      </div>
+      <div class="hero-stats">
+        <div><div class="hs-num">5+</div><div class="hs-lbl">Years Exp.</div></div>
+        <div><div class="hs-num">3</div><div class="hs-lbl">Companies</div></div>
+        <div><div class="hs-num">2</div><div class="hs-lbl">Continents</div></div>
       </div>
     </div>
-    <div class="hero-photo-wrap" id="hero-photo">
+    <div class="hero-photo" id="hero-photo">
       <div class="photo-frame">
-        <div class="photo-corner tl"></div>
-        <div class="photo-corner tr"></div>
-        <div class="photo-corner bl"></div>
-        <div class="photo-corner br"></div>
-        <img src="profile.png" alt="Sairam Banavathu"/>
-        <div class="photo-caption">Meta · Infrastructure · NM</div>
+        <img src="profile.png" alt="Sairam Banavathu" onerror="this.style.minHeight='360px'"/>
+        <div class="photo-cap">Meta · Infrastructure · NM</div>
       </div>
     </div>
   </div>
-  <div class="scroll-hint">
-    <div class="scroll-line"></div>
-    Scroll to explore
-  </div>
+  <div class="scroll-hint"><div class="scroll-line"></div>Scroll</div>
 </section>
 
-<div class="scene-divider"></div>
+<div class="divider"></div>
 
-<!-- ══════ SCENE 1: ABOUT ══════ -->
-<section class="scene" id="scene-about" style="padding:4rem 0">
-  <div class="narrator-scene">
+<!-- ABOUT -->
+<section class="section" id="scene-about">
+  <div class="wrap narrated">
+
     <div class="narrator-left">
       <div class="char-wrap">
-        <!-- SVG CHARACTER -->
         <svg viewBox="0 0 120 200" xmlns="http://www.w3.org/2000/svg">
           <defs>
-            <radialGradient id="skinGrad" cx="50%" cy="40%" r="60%">
-              <stop offset="0%" stop-color="#c8845a"/>
-              <stop offset="100%" stop-color="#a0623a"/>
-            </radialGradient>
-            <radialGradient id="shirtGrad" cx="50%" cy="30%" r="70%">
-              <stop offset="0%" stop-color="#1a3a6e"/>
-              <stop offset="100%" stop-color="#0f2548"/>
-            </radialGradient>
-            <filter id="glow">
-              <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
-              <feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge>
-            </filter>
+            <radialGradient id="sg1" cx="50%" cy="40%" r="60%"><stop offset="0%" stop-color="#c8845a"/><stop offset="100%" stop-color="#a0623a"/></radialGradient>
+            <radialGradient id="sh1" cx="50%" cy="30%" r="70%"><stop offset="0%" stop-color="#1a3a6e"/><stop offset="100%" stop-color="#0f2548"/></radialGradient>
           </defs>
-          <g class="char-body" id="charBody">
-            <!-- Shadow -->
-            <ellipse cx="60" cy="198" rx="28" ry="5" fill="rgba(0,0,0,.4)"/>
-            <!-- Body / Suit jacket -->
-            <path d="M25 130 Q20 145 18 175 Q17 185 22 188 L98 188 Q103 185 102 175 Q100 145 95 130 Q80 120 60 118 Q40 120 25 130Z" fill="url(#shirtGrad)"/>
-            <!-- Lapels -->
-            <path d="M60 118 L48 140 L55 145 L60 130 L65 145 L72 140 Z" fill="#0a1e3d"/>
-            <!-- Shirt collar -->
+          <g class="char-body" id="cb1">
+            <ellipse cx="60" cy="198" rx="26" ry="4" fill="rgba(0,0,0,.12)"/>
+            <path d="M25 130 Q20 145 18 175 Q17 185 22 188 L98 188 Q103 185 102 175 Q100 145 95 130 Q80 120 60 118 Q40 120 25 130Z" fill="url(#sh1)"/>
+            <path d="M60 118 L48 140 L55 145 L60 130 L65 145 L72 140Z" fill="#0a1e3d"/>
             <path d="M53 118 L57 132 L60 128 L63 132 L67 118 Q60 114 53 118Z" fill="#e8e4dc"/>
-            <!-- Tie -->
-            <path d="M58 128 L57 148 L60 155 L63 148 L62 128 Z" fill="#d4a843"/>
-            <!-- Neck -->
-            <rect x="54" y="108" width="12" height="14" rx="6" fill="url(#skinGrad)"/>
-            <!-- Head -->
-            <ellipse cx="60" cy="90" rx="26" ry="30" fill="url(#skinGrad)"/>
-            <!-- Hair -->
+            <path d="M58 128 L57 148 L60 155 L63 148 L62 128Z" fill="#c8922a"/>
+            <rect x="54" y="108" width="12" height="14" rx="6" fill="url(#sg1)"/>
+            <ellipse cx="60" cy="90" rx="26" ry="30" fill="url(#sg1)"/>
             <path d="M34 80 Q35 58 60 56 Q85 58 86 80 Q80 65 60 64 Q40 65 34 80Z" fill="#1a0f08"/>
-            <!-- Ear L -->
-            <ellipse cx="34" cy="90" rx="5" ry="7" fill="#a0623a"/>
-            <!-- Ear R -->
-            <ellipse cx="86" cy="90" rx="5" ry="7" fill="#a0623a"/>
-            <!-- Eyes -->
-            <ellipse cx="50" cy="88" rx="6" ry="7" fill="white"/>
-            <ellipse cx="70" cy="88" rx="6" ry="7" fill="white"/>
-            <ellipse cx="51" cy="89" rx="4" ry="4.5" fill="#2a1a0a"/>
-            <ellipse cx="71" cy="89" rx="4" ry="4.5" fill="#2a1a0a"/>
-            <circle cx="52" cy="87" r="1.2" fill="white"/>
-            <circle cx="72" cy="87" r="1.2" fill="white"/>
-            <!-- Eyebrows -->
+            <ellipse cx="34" cy="90" rx="5" ry="7" fill="#a0623a"/><ellipse cx="86" cy="90" rx="5" ry="7" fill="#a0623a"/>
+            <ellipse cx="50" cy="88" rx="6" ry="7" fill="white"/><ellipse cx="70" cy="88" rx="6" ry="7" fill="white"/>
+            <ellipse cx="51" cy="89" rx="4" ry="4.5" fill="#2a1a0a"/><ellipse cx="71" cy="89" rx="4" ry="4.5" fill="#2a1a0a"/>
+            <circle cx="52" cy="87" r="1.2" fill="white"/><circle cx="72" cy="87" r="1.2" fill="white"/>
             <path d="M44 80 Q50 76 56 80" stroke="#1a0f08" stroke-width="2" fill="none" stroke-linecap="round"/>
             <path d="M64 80 Q70 76 76 80" stroke="#1a0f08" stroke-width="2" fill="none" stroke-linecap="round"/>
-            <!-- Beard -->
             <path d="M40 100 Q45 114 60 116 Q75 114 80 100 Q72 108 60 109 Q48 108 40 100Z" fill="#2a1808" opacity=".8"/>
-            <!-- Mouth closed -->
-            <path class="mouth-closed" d="M52 104 Q60 109 68 104" stroke="#8a5530" stroke-width="2" fill="none" stroke-linecap="round"/>
-            <!-- Mouth open -->
-            <path class="mouth-open" d="M52 104 Q56 110 60 108 Q64 110 68 104 Q64 107 60 106 Q56 107 52 104Z" fill="#6a2810"/>
-            <!-- Glasses -->
-            <rect x="43" y="83" width="14" height="11" rx="3" stroke="#d4a843" stroke-width="1.5" fill="none"/>
-            <rect x="63" y="83" width="14" height="11" rx="3" stroke="#d4a843" stroke-width="1.5" fill="none"/>
-            <line x1="57" y1="88" x2="63" y2="88" stroke="#d4a843" stroke-width="1.5"/>
-            <!-- Arms -->
-            <path d="M25 135 Q10 150 12 165 Q14 170 18 168 Q22 155 28 145Z" fill="url(#shirtGrad)"/>
-            <path d="M95 135 Q110 150 108 165 Q106 170 102 168 Q98 155 92 145Z" fill="url(#shirtGrad)"/>
-            <!-- Hands -->
-            <ellipse cx="14" cy="170" rx="7" ry="8" fill="url(#skinGrad)"/>
-            <ellipse cx="106" cy="170" rx="7" ry="8" fill="url(#skinGrad)"/>
-            <!-- Laptop hint on left hand -->
+            <path d="M52 104 Q60 109 68 104" stroke="#8a5530" stroke-width="2" fill="none" stroke-linecap="round"/>
+            <rect x="43" y="83" width="14" height="11" rx="3" stroke="#c8922a" stroke-width="1.5" fill="none"/>
+            <rect x="63" y="83" width="14" height="11" rx="3" stroke="#c8922a" stroke-width="1.5" fill="none"/>
+            <line x1="57" y1="88" x2="63" y2="88" stroke="#c8922a" stroke-width="1.5"/>
+            <path d="M25 135 Q10 150 12 165 Q14 170 18 168 Q22 155 28 145Z" fill="url(#sh1)"/>
+            <path d="M95 135 Q110 150 108 165 Q106 170 102 168 Q98 155 92 145Z" fill="url(#sh1)"/>
+            <ellipse cx="14" cy="170" rx="7" ry="8" fill="url(#sg1)"/><ellipse cx="106" cy="170" rx="7" ry="8" fill="url(#sg1)"/>
             <rect x="4" y="167" width="18" height="12" rx="2" fill="#1a2535" opacity=".8"/>
             <rect x="6" y="169" width="14" height="8" rx="1" fill="#0f1820"/>
-            <!-- Gold glow at feet -->
-            <ellipse cx="60" cy="188" rx="20" ry="3" fill="rgba(212,168,67,.15)" filter="url(#glow)"/>
           </g>
         </svg>
-        <div class="speech-bubble" id="bubble">
-          <div class="speech-text" id="bubbleText">Hello! I'm your guide through Sairam's journey...</div>
-        </div>
-      </div>
-      <div>
         <div class="char-name">Sairam</div>
         <div class="char-role">Your narrator</div>
       </div>
+      <div class="speech-bubble" id="bub1"><span class="speech-text" id="bt1"></span></div>
     </div>
-    <div class="section-content" id="about-content">
-      <div class="scene-label">01 — Origin Story</div>
-      <h2 class="scene-heading">From <span class="accent">India</span><br>to Meta</h2>
-      <p class="scene-body">Born with a curiosity for how things work, I began my engineering journey in India at Amrita Vishwa Vidyapeetham, graduating with a BTech in Computer Science. That foundation sent me across the ocean to the University of North Carolina Charlotte, where I earned my Master's in Computer Science.</p>
-      <p class="scene-body" style="margin-top:1rem">Today, I build and maintain infrastructure at Meta — systems that serve billions of people, every single second. From code that runs on a single machine to pipelines that span global data centers, I've followed one guiding principle: <em>build things that last.</em></p>
-      <div class="stats-row" id="stats">
-        <div class="stat-block reveal" style="transition-delay:.1s">
-          <div class="stat-num">5+</div>
-          <div class="stat-label">Years Experience</div>
-        </div>
-        <div class="stat-block reveal" style="transition-delay:.2s">
-          <div class="stat-num">3</div>
-          <div class="stat-label">Companies</div>
-        </div>
-        <div class="stat-block reveal" style="transition-delay:.3s">
-          <div class="stat-num">2</div>
-          <div class="stat-label">Continents</div>
-        </div>
+
+    <div>
+      <div class="scene-label reveal">01 — Origin Story</div>
+      <h2 class="scene-heading reveal" style="transition-delay:.1s">A Journey <span class="ac">Worth</span><br>Telling</h2>
+      <p class="scene-body reveal" style="transition-delay:.15s">Born with a curiosity for how things work, I began my engineering journey in India at Amrita Vishwa Vidyapeetham, graduating with a BTech in Computer Science. That foundation sent me across the ocean to the University of North Carolina Charlotte, where I earned my Master's in Computer Science.</p>
+      <p class="scene-body reveal" style="transition-delay:.2s;margin-top:1rem">Today, I build and maintain infrastructure at Meta — systems that serve billions of people, every single second. From code on a single machine to pipelines spanning global data centers, I follow one guiding principle: <em>build things that last.</em></p>
+      <div class="stats-row">
+        <div class="stat-block reveal" style="transition-delay:.25s"><div class="stat-num">5+</div><div class="stat-label">Years Experience</div></div>
+        <div class="stat-block reveal" style="transition-delay:.32s"><div class="stat-num">3</div><div class="stat-label">Companies</div></div>
+        <div class="stat-block reveal" style="transition-delay:.39s"><div class="stat-num">2</div><div class="stat-label">Continents</div></div>
       </div>
     </div>
   </div>
 </section>
 
-<div class="scene-divider"></div>
+<div class="divider"></div>
 
-<!-- ══════ SCENE 2: EXPERIENCE ══════ -->
-<section class="scene" id="scene-exp" style="padding:4rem 0">
-  <div class="narrator-scene">
+<!-- EXPERIENCE -->
+<section class="section section-alt" id="scene-exp">
+  <div class="wrap narrated">
+
     <div class="narrator-left">
       <div class="char-wrap">
         <svg viewBox="0 0 120 200" xmlns="http://www.w3.org/2000/svg">
-          <defs>
-            <radialGradient id="skinGrad2" cx="50%" cy="40%" r="60%">
-              <stop offset="0%" stop-color="#c8845a"/>
-              <stop offset="100%" stop-color="#a0623a"/>
-            </radialGradient>
-          </defs>
-          <g class="char-body" id="charBody2" style="animation-delay:-.5s">
-            <ellipse cx="60" cy="198" rx="28" ry="5" fill="rgba(0,0,0,.4)"/>
+          <defs><radialGradient id="sg2" cx="50%" cy="40%" r="60%"><stop offset="0%" stop-color="#c8845a"/><stop offset="100%" stop-color="#a0623a"/></radialGradient></defs>
+          <g class="char-body" id="cb2">
+            <ellipse cx="60" cy="198" rx="26" ry="4" fill="rgba(0,0,0,.12)"/>
             <path d="M25 130 Q20 145 18 175 Q17 185 22 188 L98 188 Q103 185 102 175 Q100 145 95 130 Q80 120 60 118 Q40 120 25 130Z" fill="#1a3a6e"/>
-            <path d="M60 118 L48 140 L55 145 L60 130 L65 145 L72 140 Z" fill="#0a1e3d"/>
+            <path d="M60 118 L48 140 L55 145 L60 130 L65 145 L72 140Z" fill="#0a1e3d"/>
             <path d="M53 118 L57 132 L60 128 L63 132 L67 118 Q60 114 53 118Z" fill="#e8e4dc"/>
-            <path d="M58 128 L57 148 L60 155 L63 148 L62 128 Z" fill="#d4a843"/>
-            <rect x="54" y="108" width="12" height="14" rx="6" fill="url(#skinGrad2)"/>
-            <ellipse cx="60" cy="90" rx="26" ry="30" fill="url(#skinGrad2)"/>
+            <path d="M58 128 L57 148 L60 155 L63 148 L62 128Z" fill="#c8922a"/>
+            <rect x="54" y="108" width="12" height="14" rx="6" fill="url(#sg2)"/>
+            <ellipse cx="60" cy="90" rx="26" ry="30" fill="url(#sg2)"/>
             <path d="M34 80 Q35 58 60 56 Q85 58 86 80 Q80 65 60 64 Q40 65 34 80Z" fill="#1a0f08"/>
-            <ellipse cx="34" cy="90" rx="5" ry="7" fill="#a0623a"/>
-            <ellipse cx="86" cy="90" rx="5" ry="7" fill="#a0623a"/>
-            <ellipse cx="50" cy="88" rx="6" ry="7" fill="white"/>
-            <ellipse cx="70" cy="88" rx="6" ry="7" fill="white"/>
-            <ellipse cx="51" cy="89" rx="4" ry="4.5" fill="#2a1a0a"/>
-            <ellipse cx="71" cy="89" rx="4" ry="4.5" fill="#2a1a0a"/>
-            <circle cx="52" cy="87" r="1.2" fill="white"/>
-            <circle cx="72" cy="87" r="1.2" fill="white"/>
+            <ellipse cx="34" cy="90" rx="5" ry="7" fill="#a0623a"/><ellipse cx="86" cy="90" rx="5" ry="7" fill="#a0623a"/>
+            <ellipse cx="50" cy="88" rx="6" ry="7" fill="white"/><ellipse cx="70" cy="88" rx="6" ry="7" fill="white"/>
+            <ellipse cx="51" cy="89" rx="4" ry="4.5" fill="#2a1a0a"/><ellipse cx="71" cy="89" rx="4" ry="4.5" fill="#2a1a0a"/>
+            <circle cx="52" cy="87" r="1.2" fill="white"/><circle cx="72" cy="87" r="1.2" fill="white"/>
             <path d="M44 80 Q50 76 56 80" stroke="#1a0f08" stroke-width="2" fill="none" stroke-linecap="round"/>
             <path d="M64 80 Q70 76 76 80" stroke="#1a0f08" stroke-width="2" fill="none" stroke-linecap="round"/>
             <path d="M40 100 Q45 114 60 116 Q75 114 80 100 Q72 108 60 109 Q48 108 40 100Z" fill="#2a1808" opacity=".8"/>
-            <path class="mouth-closed" d="M52 104 Q60 109 68 104" stroke="#8a5530" stroke-width="2" fill="none" stroke-linecap="round"/>
-            <path class="mouth-open" d="M52 104 Q56 110 60 108 Q64 110 68 104 Q64 107 60 106 Q56 107 52 104Z" fill="#6a2810"/>
-            <rect x="43" y="83" width="14" height="11" rx="3" stroke="#d4a843" stroke-width="1.5" fill="none"/>
-            <rect x="63" y="83" width="14" height="11" rx="3" stroke="#d4a843" stroke-width="1.5" fill="none"/>
-            <line x1="57" y1="88" x2="63" y2="88" stroke="#d4a843" stroke-width="1.5"/>
+            <path d="M52 104 Q60 109 68 104" stroke="#8a5530" stroke-width="2" fill="none" stroke-linecap="round"/>
+            <rect x="43" y="83" width="14" height="11" rx="3" stroke="#c8922a" stroke-width="1.5" fill="none"/>
+            <rect x="63" y="83" width="14" height="11" rx="3" stroke="#c8922a" stroke-width="1.5" fill="none"/>
+            <line x1="57" y1="88" x2="63" y2="88" stroke="#c8922a" stroke-width="1.5"/>
             <path d="M25 135 Q10 150 12 165 Q14 170 18 168 Q22 155 28 145Z" fill="#1a3a6e"/>
             <path d="M95 135 Q110 150 108 165 Q106 170 102 168 Q98 155 92 145Z" fill="#1a3a6e"/>
-            <ellipse cx="14" cy="170" rx="7" ry="8" fill="url(#skinGrad2)"/>
-            <ellipse cx="106" cy="170" rx="7" ry="8" fill="url(#skinGrad2)"/>
+            <ellipse cx="14" cy="170" rx="7" ry="8" fill="url(#sg2)"/><ellipse cx="106" cy="170" rx="7" ry="8" fill="url(#sg2)"/>
           </g>
         </svg>
-        <div class="speech-bubble" id="bubble2">
-          <div class="speech-text" id="bubbleText2">Three chapters of my career, each one bigger than the last...</div>
-        </div>
-      </div>
-      <div>
         <div class="char-name">Sairam</div>
         <div class="char-role">Career journey</div>
       </div>
+      <div class="speech-bubble" id="bub2"><span class="speech-text" id="bt2"></span></div>
     </div>
-    <div class="section-content" id="exp-content">
-      <div class="scene-label">02 — The Journey</div>
-      <h2 class="scene-heading">Where I've <span class="accent">Worked</span></h2>
+
+    <div>
+      <div class="scene-label reveal">02 — The Journey</div>
+      <h2 class="scene-heading reveal" style="transition-delay:.1s">Where I've <span class="ac">Worked</span></h2>
       <div class="timeline">
-        <div class="tl-item reveal" style="transition-delay:.1s" id="tl1">
-          <div>
-            <div class="tl-year">2025<br>Now</div>
-          </div>
-          <div style="position:relative;padding-left:1rem">
-            <div class="tl-dot"></div>
+        <div class="tl-item reveal" style="transition-delay:.1s">
+          <div class="tl-year">2025<br>Now</div>
+          <div class="tl-body"><div class="tl-dot"></div>
             <div class="tl-company">Meta</div>
             <div class="tl-role">Reliability Engineer — Infrastructure & Systems Automation</div>
             <div class="tl-desc">Building and maintaining the backbone of Meta's global infrastructure. Driving systems automation, reliability engineering, and observability across large-scale distributed systems — ensuring billions of connections stay alive.</div>
-            <div class="tl-tags">
-              <span class="tl-tag">Infrastructure</span>
-              <span class="tl-tag">Reliability</span>
-              <span class="tl-tag">Automation</span>
-              <span class="tl-tag">Distributed Systems</span>
-            </div>
+            <div class="tl-tags"><span class="tl-tag">Infrastructure</span><span class="tl-tag">Reliability</span><span class="tl-tag">Automation</span><span class="tl-tag">Distributed Systems</span></div>
           </div>
         </div>
-        <div class="tl-item reveal" style="transition-delay:.2s" id="tl2">
-          <div>
-            <div class="tl-year">2023<br>2025</div>
-          </div>
-          <div style="position:relative;padding-left:1rem">
-            <div class="tl-dot"></div>
+        <div class="tl-item reveal" style="transition-delay:.2s">
+          <div class="tl-year">2023<br>2025</div>
+          <div class="tl-body"><div class="tl-dot"></div>
             <div class="tl-company">Wells Fargo</div>
             <div class="tl-role">Backend Software Engineer — Charlotte, NC</div>
             <div class="tl-desc">Engineered robust backend systems powering financial services for millions. Built event-driven microservices with Kafka and Spring Boot, designed REST APIs, managed AWS deployments, and championed CI/CD pipelines that cut release cycles dramatically.</div>
-            <div class="tl-tags">
-              <span class="tl-tag">Java</span>
-              <span class="tl-tag">Spring Boot</span>
-              <span class="tl-tag">Kafka</span>
-              <span class="tl-tag">AWS</span>
-              <span class="tl-tag">CI/CD</span>
-            </div>
+            <div class="tl-tags"><span class="tl-tag">Java</span><span class="tl-tag">Spring Boot</span><span class="tl-tag">Kafka</span><span class="tl-tag">AWS</span><span class="tl-tag">CI/CD</span></div>
           </div>
         </div>
-        <div class="tl-item reveal" style="transition-delay:.3s" id="tl3">
-          <div>
-            <div class="tl-year">2020<br>2022</div>
-          </div>
-          <div style="position:relative;padding-left:1rem">
-            <div class="tl-dot"></div>
+        <div class="tl-item reveal" style="transition-delay:.3s">
+          <div class="tl-year">2020<br>2022</div>
+          <div class="tl-body"><div class="tl-dot"></div>
             <div class="tl-company">Capgemini</div>
             <div class="tl-role">Software Test & Integration Engineer — India</div>
             <div class="tl-desc">Laid the foundation — designing integration test frameworks, validating complex system interactions, and ensuring enterprise software shipped with confidence. Honed the discipline that all great engineers need: making sure it actually works.</div>
-            <div class="tl-tags">
-              <span class="tl-tag">Testing</span>
-              <span class="tl-tag">Integration</span>
-              <span class="tl-tag">QA</span>
-              <span class="tl-tag">Java</span>
-            </div>
+            <div class="tl-tags"><span class="tl-tag">Testing</span><span class="tl-tag">Integration</span><span class="tl-tag">QA</span><span class="tl-tag">Java</span></div>
           </div>
         </div>
       </div>
@@ -522,222 +422,143 @@ nav::after{content:'';position:absolute;inset:0;background:linear-gradient(180de
   </div>
 </section>
 
-<div class="scene-divider"></div>
+<div class="divider"></div>
 
-<!-- ══════ SCENE 3: SKILLS ══════ -->
-<section class="scene" id="scene-skills" style="padding:4rem 0">
-  <div class="narrator-scene">
+<!-- SKILLS -->
+<section class="section" id="scene-skills">
+  <div class="wrap narrated">
+
     <div class="narrator-left">
       <div class="char-wrap">
         <svg viewBox="0 0 120 200" xmlns="http://www.w3.org/2000/svg">
-          <defs>
-            <radialGradient id="skinGrad3" cx="50%" cy="40%" r="60%">
-              <stop offset="0%" stop-color="#c8845a"/>
-              <stop offset="100%" stop-color="#a0623a"/>
-            </radialGradient>
-          </defs>
-          <g class="char-body" id="charBody3" style="animation-delay:-1s">
-            <ellipse cx="60" cy="198" rx="28" ry="5" fill="rgba(0,0,0,.4)"/>
+          <defs><radialGradient id="sg3" cx="50%" cy="40%" r="60%"><stop offset="0%" stop-color="#c8845a"/><stop offset="100%" stop-color="#a0623a"/></radialGradient></defs>
+          <g class="char-body" id="cb3">
+            <ellipse cx="60" cy="198" rx="26" ry="4" fill="rgba(0,0,0,.12)"/>
             <path d="M25 130 Q20 145 18 175 Q17 185 22 188 L98 188 Q103 185 102 175 Q100 145 95 130 Q80 120 60 118 Q40 120 25 130Z" fill="#1a3a6e"/>
-            <path d="M60 118 L48 140 L55 145 L60 130 L65 145 L72 140 Z" fill="#0a1e3d"/>
+            <path d="M60 118 L48 140 L55 145 L60 130 L65 145 L72 140Z" fill="#0a1e3d"/>
             <path d="M53 118 L57 132 L60 128 L63 132 L67 118 Q60 114 53 118Z" fill="#e8e4dc"/>
-            <path d="M58 128 L57 148 L60 155 L63 148 L62 128 Z" fill="#d4a843"/>
-            <rect x="54" y="108" width="12" height="14" rx="6" fill="url(#skinGrad3)"/>
-            <ellipse cx="60" cy="90" rx="26" ry="30" fill="url(#skinGrad3)"/>
+            <path d="M58 128 L57 148 L60 155 L63 148 L62 128Z" fill="#c8922a"/>
+            <rect x="54" y="108" width="12" height="14" rx="6" fill="url(#sg3)"/>
+            <ellipse cx="60" cy="90" rx="26" ry="30" fill="url(#sg3)"/>
             <path d="M34 80 Q35 58 60 56 Q85 58 86 80 Q80 65 60 64 Q40 65 34 80Z" fill="#1a0f08"/>
-            <ellipse cx="34" cy="90" rx="5" ry="7" fill="#a0623a"/>
-            <ellipse cx="86" cy="90" rx="5" ry="7" fill="#a0623a"/>
-            <ellipse cx="50" cy="88" rx="6" ry="7" fill="white"/>
-            <ellipse cx="70" cy="88" rx="6" ry="7" fill="white"/>
-            <ellipse cx="51" cy="89" rx="4" ry="4.5" fill="#2a1a0a"/>
-            <ellipse cx="71" cy="89" rx="4" ry="4.5" fill="#2a1a0a"/>
-            <circle cx="52" cy="87" r="1.2" fill="white"/>
-            <circle cx="72" cy="87" r="1.2" fill="white"/>
+            <ellipse cx="34" cy="90" rx="5" ry="7" fill="#a0623a"/><ellipse cx="86" cy="90" rx="5" ry="7" fill="#a0623a"/>
+            <ellipse cx="50" cy="88" rx="6" ry="7" fill="white"/><ellipse cx="70" cy="88" rx="6" ry="7" fill="white"/>
+            <ellipse cx="51" cy="89" rx="4" ry="4.5" fill="#2a1a0a"/><ellipse cx="71" cy="89" rx="4" ry="4.5" fill="#2a1a0a"/>
+            <circle cx="52" cy="87" r="1.2" fill="white"/><circle cx="72" cy="87" r="1.2" fill="white"/>
             <path d="M44 80 Q50 76 56 80" stroke="#1a0f08" stroke-width="2" fill="none" stroke-linecap="round"/>
             <path d="M64 80 Q70 76 76 80" stroke="#1a0f08" stroke-width="2" fill="none" stroke-linecap="round"/>
             <path d="M40 100 Q45 114 60 116 Q75 114 80 100 Q72 108 60 109 Q48 108 40 100Z" fill="#2a1808" opacity=".8"/>
-            <path class="mouth-closed" d="M52 104 Q60 109 68 104" stroke="#8a5530" stroke-width="2" fill="none" stroke-linecap="round"/>
-            <path class="mouth-open" d="M52 104 Q56 110 60 108 Q64 110 68 104 Q64 107 60 106 Q56 107 52 104Z" fill="#6a2810"/>
-            <rect x="43" y="83" width="14" height="11" rx="3" stroke="#d4a843" stroke-width="1.5" fill="none"/>
-            <rect x="63" y="83" width="14" height="11" rx="3" stroke="#d4a843" stroke-width="1.5" fill="none"/>
-            <line x1="57" y1="88" x2="63" y2="88" stroke="#d4a843" stroke-width="1.5"/>
-            <!-- Pointing arm -->
+            <path d="M52 104 Q60 109 68 104" stroke="#8a5530" stroke-width="2" fill="none" stroke-linecap="round"/>
+            <rect x="43" y="83" width="14" height="11" rx="3" stroke="#c8922a" stroke-width="1.5" fill="none"/>
+            <rect x="63" y="83" width="14" height="11" rx="3" stroke="#c8922a" stroke-width="1.5" fill="none"/>
+            <line x1="57" y1="88" x2="63" y2="88" stroke="#c8922a" stroke-width="1.5"/>
             <path d="M95 135 Q115 125 118 118 Q116 114 112 116 Q104 128 92 140Z" fill="#1a3a6e"/>
-            <ellipse cx="116" cy="116" rx="7" ry="8" fill="url(#skinGrad3)"/>
+            <ellipse cx="116" cy="116" rx="7" ry="8" fill="url(#sg3)"/>
             <path d="M25 135 Q10 150 12 165 Q14 170 18 168 Q22 155 28 145Z" fill="#1a3a6e"/>
-            <ellipse cx="14" cy="170" rx="7" ry="8" fill="url(#skinGrad3)"/>
+            <ellipse cx="14" cy="170" rx="7" ry="8" fill="url(#sg3)"/>
           </g>
         </svg>
-        <div class="speech-bubble" id="bubble3">
-          <div class="speech-text" id="bubbleText3">Here's the toolkit I bring to every challenge...</div>
-        </div>
-      </div>
-      <div>
         <div class="char-name">Sairam</div>
         <div class="char-role">The toolkit</div>
       </div>
+      <div class="speech-bubble" id="bub3"><span class="speech-text" id="bt3"></span></div>
     </div>
-    <div class="section-content" id="skills-content">
-      <div class="scene-label">03 — Arsenal</div>
-      <h2 class="scene-heading">Skills &amp; <span class="accent">Stack</span></h2>
+
+    <div>
+      <div class="scene-label reveal">03 — Arsenal</div>
+      <h2 class="scene-heading reveal" style="transition-delay:.1s">Skills &amp; <span class="ac">Stack</span></h2>
       <div class="skills-grid">
-        <div class="skill-card reveal" style="transition-delay:.05s">
-          <div class="skill-cat">⌨ Languages</div>
-          <div class="skill-list">
-            <span class="skill-pill">Java</span><span class="skill-pill">Python</span><span class="skill-pill">SQL</span><span class="skill-pill">Shell</span>
-          </div>
-        </div>
-        <div class="skill-card reveal" style="transition-delay:.1s">
-          <div class="skill-cat">⚙ Frameworks</div>
-          <div class="skill-list">
-            <span class="skill-pill">Spring Boot</span><span class="skill-pill">Kafka</span><span class="skill-pill">REST APIs</span>
-          </div>
-        </div>
-        <div class="skill-card reveal" style="transition-delay:.15s">
-          <div class="skill-cat">☁ Cloud & AWS</div>
-          <div class="skill-list">
-            <span class="skill-pill">EC2</span><span class="skill-pill">Lambda</span><span class="skill-pill">S3</span><span class="skill-pill">EKS</span><span class="skill-pill">Elastic Beanstalk</span>
-          </div>
-        </div>
-        <div class="skill-card reveal" style="transition-delay:.2s">
-          <div class="skill-cat">🐳 DevOps</div>
-          <div class="skill-list">
-            <span class="skill-pill">Terraform</span><span class="skill-pill">Docker</span><span class="skill-pill">Kubernetes</span><span class="skill-pill">Jenkins</span><span class="skill-pill">CI/CD</span>
-          </div>
-        </div>
-        <div class="skill-card reveal" style="transition-delay:.25s">
-          <div class="skill-cat">📊 Observability</div>
-          <div class="skill-list">
-            <span class="skill-pill">Datadog</span><span class="skill-pill">Telemetry</span><span class="skill-pill">Log Analysis</span>
-          </div>
-        </div>
-        <div class="skill-card reveal" style="transition-delay:.3s">
-          <div class="skill-cat">🗄 Databases</div>
-          <div class="skill-list">
-            <span class="skill-pill">PostgreSQL</span><span class="skill-pill">SQL Server</span><span class="skill-pill">Oracle SQL</span>
-          </div>
-        </div>
-        <div class="skill-card reveal" style="transition-delay:.35s">
-          <div class="skill-cat">🌐 Networking</div>
-          <div class="skill-list">
-            <span class="skill-pill">TCP/IP</span><span class="skill-pill">DNS</span><span class="skill-pill">DHCP</span><span class="skill-pill">Routing & Switching</span>
-          </div>
-        </div>
-        <div class="skill-card reveal" style="transition-delay:.4s">
-          <div class="skill-cat">🧪 Testing</div>
-          <div class="skill-list">
-            <span class="skill-pill">JUnit</span><span class="skill-pill">Integration</span><span class="skill-pill">Performance</span><span class="skill-pill">Functional</span>
-          </div>
-        </div>
+        <div class="skill-card reveal" style="transition-delay:.05s"><div class="skill-cat">⌨ Languages</div><div class="skill-list"><span class="skill-pill">Java</span><span class="skill-pill">Python</span><span class="skill-pill">SQL</span><span class="skill-pill">Shell</span></div></div>
+        <div class="skill-card reveal" style="transition-delay:.1s"><div class="skill-cat">⚙ Frameworks</div><div class="skill-list"><span class="skill-pill">Spring Boot</span><span class="skill-pill">Kafka</span><span class="skill-pill">REST APIs</span></div></div>
+        <div class="skill-card reveal" style="transition-delay:.15s"><div class="skill-cat">☁ Cloud &amp; AWS</div><div class="skill-list"><span class="skill-pill">EC2</span><span class="skill-pill">Lambda</span><span class="skill-pill">S3</span><span class="skill-pill">EKS</span><span class="skill-pill">Elastic Beanstalk</span></div></div>
+        <div class="skill-card reveal" style="transition-delay:.2s"><div class="skill-cat">🐳 DevOps</div><div class="skill-list"><span class="skill-pill">Terraform</span><span class="skill-pill">Docker</span><span class="skill-pill">Kubernetes</span><span class="skill-pill">Jenkins</span><span class="skill-pill">CI/CD</span></div></div>
+        <div class="skill-card reveal" style="transition-delay:.25s"><div class="skill-cat">📊 Observability</div><div class="skill-list"><span class="skill-pill">Datadog</span><span class="skill-pill">Telemetry</span><span class="skill-pill">Log Analysis</span></div></div>
+        <div class="skill-card reveal" style="transition-delay:.3s"><div class="skill-cat">🗄 Databases</div><div class="skill-list"><span class="skill-pill">PostgreSQL</span><span class="skill-pill">SQL Server</span><span class="skill-pill">Oracle SQL</span></div></div>
+        <div class="skill-card reveal" style="transition-delay:.35s"><div class="skill-cat">🌐 Networking</div><div class="skill-list"><span class="skill-pill">TCP/IP</span><span class="skill-pill">DNS</span><span class="skill-pill">DHCP</span><span class="skill-pill">Routing &amp; Switching</span></div></div>
+        <div class="skill-card reveal" style="transition-delay:.4s"><div class="skill-cat">🧪 Testing</div><div class="skill-list"><span class="skill-pill">JUnit</span><span class="skill-pill">Integration</span><span class="skill-pill">Performance</span><span class="skill-pill">Functional</span></div></div>
       </div>
     </div>
   </div>
 </section>
 
-<div class="scene-divider"></div>
+<div class="divider"></div>
 
-<!-- ══════ SCENE 4: EDUCATION ══════ -->
-<section class="scene" id="scene-edu" style="padding:4rem 0">
-  <div class="narrator-scene">
+<!-- EDUCATION -->
+<section class="section section-alt" id="scene-edu">
+  <div class="wrap narrated">
+
     <div class="narrator-left">
       <div class="char-wrap">
         <svg viewBox="0 0 120 200" xmlns="http://www.w3.org/2000/svg">
-          <defs>
-            <radialGradient id="skinGrad4" cx="50%" cy="40%" r="60%">
-              <stop offset="0%" stop-color="#c8845a"/>
-              <stop offset="100%" stop-color="#a0623a"/>
-            </radialGradient>
-          </defs>
-          <g class="char-body" id="charBody4" style="animation-delay:-1.5s">
-            <ellipse cx="60" cy="198" rx="28" ry="5" fill="rgba(0,0,0,.4)"/>
+          <defs><radialGradient id="sg4" cx="50%" cy="40%" r="60%"><stop offset="0%" stop-color="#c8845a"/><stop offset="100%" stop-color="#a0623a"/></radialGradient></defs>
+          <g class="char-body" id="cb4">
+            <ellipse cx="60" cy="198" rx="26" ry="4" fill="rgba(0,0,0,.12)"/>
             <path d="M25 130 Q20 145 18 175 Q17 185 22 188 L98 188 Q103 185 102 175 Q100 145 95 130 Q80 120 60 118 Q40 120 25 130Z" fill="#1a3a6e"/>
-            <path d="M60 118 L48 140 L55 145 L60 130 L65 145 L72 140 Z" fill="#0a1e3d"/>
+            <path d="M60 118 L48 140 L55 145 L60 130 L65 145 L72 140Z" fill="#0a1e3d"/>
             <path d="M53 118 L57 132 L60 128 L63 132 L67 118 Q60 114 53 118Z" fill="#e8e4dc"/>
-            <path d="M58 128 L57 148 L60 155 L63 148 L62 128 Z" fill="#d4a843"/>
-            <rect x="54" y="108" width="12" height="14" rx="6" fill="url(#skinGrad4)"/>
-            <ellipse cx="60" cy="90" rx="26" ry="30" fill="url(#skinGrad4)"/>
+            <path d="M58 128 L57 148 L60 155 L63 148 L62 128Z" fill="#c8922a"/>
+            <rect x="54" y="108" width="12" height="14" rx="6" fill="url(#sg4)"/>
+            <ellipse cx="60" cy="90" rx="26" ry="30" fill="url(#sg4)"/>
             <path d="M34 80 Q35 58 60 56 Q85 58 86 80 Q80 65 60 64 Q40 65 34 80Z" fill="#1a0f08"/>
-            <ellipse cx="34" cy="90" rx="5" ry="7" fill="#a0623a"/>
-            <ellipse cx="86" cy="90" rx="5" ry="7" fill="#a0623a"/>
-            <ellipse cx="50" cy="88" rx="6" ry="7" fill="white"/>
-            <ellipse cx="70" cy="88" rx="6" ry="7" fill="white"/>
-            <ellipse cx="51" cy="89" rx="4" ry="4.5" fill="#2a1a0a"/>
-            <ellipse cx="71" cy="89" rx="4" ry="4.5" fill="#2a1a0a"/>
-            <circle cx="52" cy="87" r="1.2" fill="white"/>
-            <circle cx="72" cy="87" r="1.2" fill="white"/>
+            <ellipse cx="34" cy="90" rx="5" ry="7" fill="#a0623a"/><ellipse cx="86" cy="90" rx="5" ry="7" fill="#a0623a"/>
+            <ellipse cx="50" cy="88" rx="6" ry="7" fill="white"/><ellipse cx="70" cy="88" rx="6" ry="7" fill="white"/>
+            <ellipse cx="51" cy="89" rx="4" ry="4.5" fill="#2a1a0a"/><ellipse cx="71" cy="89" rx="4" ry="4.5" fill="#2a1a0a"/>
+            <circle cx="52" cy="87" r="1.2" fill="white"/><circle cx="72" cy="87" r="1.2" fill="white"/>
             <path d="M44 80 Q50 76 56 80" stroke="#1a0f08" stroke-width="2" fill="none" stroke-linecap="round"/>
             <path d="M64 80 Q70 76 76 80" stroke="#1a0f08" stroke-width="2" fill="none" stroke-linecap="round"/>
             <path d="M40 100 Q45 114 60 116 Q75 114 80 100 Q72 108 60 109 Q48 108 40 100Z" fill="#2a1808" opacity=".8"/>
-            <path class="mouth-closed" d="M52 104 Q60 109 68 104" stroke="#8a5530" stroke-width="2" fill="none" stroke-linecap="round"/>
-            <path class="mouth-open" d="M52 104 Q56 110 60 108 Q64 110 68 104 Q64 107 60 106 Q56 107 52 104Z" fill="#6a2810"/>
-            <rect x="43" y="83" width="14" height="11" rx="3" stroke="#d4a843" stroke-width="1.5" fill="none"/>
-            <rect x="63" y="83" width="14" height="11" rx="3" stroke="#d4a843" stroke-width="1.5" fill="none"/>
-            <line x1="57" y1="88" x2="63" y2="88" stroke="#d4a843" stroke-width="1.5"/>
-            <!-- Book in hands -->
+            <path d="M52 104 Q60 109 68 104" stroke="#8a5530" stroke-width="2" fill="none" stroke-linecap="round"/>
+            <rect x="43" y="83" width="14" height="11" rx="3" stroke="#c8922a" stroke-width="1.5" fill="none"/>
+            <rect x="63" y="83" width="14" height="11" rx="3" stroke="#c8922a" stroke-width="1.5" fill="none"/>
+            <line x1="57" y1="88" x2="63" y2="88" stroke="#c8922a" stroke-width="1.5"/>
             <path d="M25 135 Q15 148 16 162 Q18 168 22 166 Q25 152 30 143Z" fill="#1a3a6e"/>
             <path d="M95 135 Q105 148 104 162 Q102 168 98 166 Q95 152 90 143Z" fill="#1a3a6e"/>
-            <ellipse cx="18" cy="168" rx="7" ry="8" fill="url(#skinGrad4)"/>
-            <ellipse cx="102" cy="168" rx="7" ry="8" fill="url(#skinGrad4)"/>
-            <rect x="30" y="155" width="60" height="38" rx="3" fill="#d4a843" opacity=".9"/>
+            <ellipse cx="18" cy="168" rx="7" ry="8" fill="url(#sg4)"/><ellipse cx="102" cy="168" rx="7" ry="8" fill="url(#sg4)"/>
+            <rect x="30" y="155" width="60" height="38" rx="3" fill="#c8922a" opacity=".9"/>
             <rect x="33" y="158" width="54" height="32" rx="2" fill="#b88a30"/>
             <line x1="60" y1="158" x2="60" y2="190" stroke="#8a6020" stroke-width="1"/>
-            <rect x="36" y="161" width="20" height="2" rx="1" fill="#8a6020" opacity=".6"/>
-            <rect x="36" y="165" width="16" height="2" rx="1" fill="#8a6020" opacity=".4"/>
           </g>
         </svg>
-        <div class="speech-bubble" id="bubble4">
-          <div class="speech-text" id="bubbleText4">My academic foundation spans two countries and two degrees...</div>
-        </div>
-      </div>
-      <div>
         <div class="char-name">Sairam</div>
         <div class="char-role">Academic path</div>
       </div>
+      <div class="speech-bubble" id="bub4"><span class="speech-text" id="bt4"></span></div>
     </div>
-    <div class="section-content" id="edu-content">
-      <div class="scene-label">04 — Foundation</div>
-      <h2 class="scene-heading">Education &amp; <span class="accent">Credentials</span></h2>
-      <div class="edu-card reveal">
-        <div class="edu-icon">🎓</div>
-        <div>
-          <div class="edu-deg">Master of Science — Computer Science</div>
-          <div class="edu-school">University of North Carolina Charlotte</div>
-          <div class="edu-period">USA · Graduate Studies</div>
-        </div>
-      </div>
+
+    <div>
+      <div class="scene-label reveal">04 — Foundation</div>
+      <h2 class="scene-heading reveal" style="transition-delay:.1s">Education &amp; <span class="ac">Credentials</span></h2>
       <div class="edu-card reveal" style="transition-delay:.15s">
-        <div class="edu-icon">🏛</div>
-        <div>
-          <div class="edu-deg">Bachelor of Technology — Computer Science</div>
-          <div class="edu-school">Amrita Vishwa Vidyapeetham</div>
-          <div class="edu-period">India · Undergraduate</div>
-        </div>
+        <div class="edu-icon">🎓</div>
+        <div><div class="edu-deg">Master of Science — Computer Science</div><div class="edu-school">University of North Carolina Charlotte</div><div class="edu-period">USA · Graduate Studies</div></div>
       </div>
-      <div class="cert-badge reveal" style="transition-delay:.3s">
+      <div class="edu-card reveal" style="transition-delay:.25s">
+        <div class="edu-icon">🏛</div>
+        <div><div class="edu-deg">Bachelor of Technology — Computer Science</div><div class="edu-school">Amrita Vishwa Vidyapeetham</div><div class="edu-period">India · Undergraduate</div></div>
+      </div>
+      <div class="cert-badge reveal" style="transition-delay:.35s">
         <div class="cert-icon">☁</div>
-        <div class="cert-text">
-          AWS Certified<br>Cloud Practitioner — Foundational
-        </div>
+        <div class="cert-text">AWS Certified<br>Cloud Practitioner — Foundational</div>
       </div>
     </div>
   </div>
 </section>
 
-<div class="scene-divider"></div>
+<div class="divider"></div>
 
-<!-- ══════ SCENE 5: CONTACT ══════ -->
-<section class="scene" id="scene-contact" style="padding:6rem 0 4rem;min-height:auto">
-  <div class="contact-inner" style="width:100%;max-width:1400px;margin:0 auto;padding:0 4rem">
+<!-- CONTACT -->
+<section id="scene-contact">
+  <div class="wrap">
     <div class="scene-label reveal">05 — Let's Build</div>
     <div class="contact-grid">
-      <div class="reveal">
-        <h2 class="contact-big">Let's<br><span>Work</span><br>Together</h2>
-        <p style="font-family:var(--serif);font-size:1.05rem;color:var(--silver);line-height:1.8;max-width:400px">Open to new opportunities, collaborations, and conversations. If you're building something that matters, I'd love to be part of it.</p>
+      <div class="reveal" style="transition-delay:.05s">
+        <h2 class="contact-big">Let's<br><span class="c-em">Work</span><br>Together</h2>
+        <p class="contact-desc">I'm open to software engineering, backend, infrastructure, and systems automation opportunities. If my background aligns with your team's needs, I'd be glad to connect.</p>
       </div>
-      <div class="contact-links reveal" style="transition-delay:.2s">
-        <a href="mailto:banavathusairam1@gmail.com" class="contact-link">
+      <div class="contact-links reveal" style="transition-delay:.15s">
+        <a href="#" class="contact-link" id="email-link">
           <div class="cl-icon">✉</div>
-          <div><div class="cl-label">Email</div><div class="cl-value">banavathusairam1@gmail.com</div></div>
+          <div><div class="cl-label">Email</div><div class="cl-value" id="email-val">Loading...</div></div>
         </a>
         <a href="tel:9803999900" class="contact-link">
           <div class="cl-icon">☎</div>
@@ -747,13 +568,13 @@ nav::after{content:'';position:absolute;inset:0;background:linear-gradient(180de
           <div class="cl-icon">in</div>
           <div><div class="cl-label">LinkedIn</div><div class="cl-value">Connect on LinkedIn</div></div>
         </a>
-        <div class="contact-link" style="cursor:default">
+        <div class="cl-loc">
           <div class="cl-icon">📍</div>
           <div><div class="cl-label">Location</div><div class="cl-value">New Mexico · Open to Remote / Relocation</div></div>
         </div>
       </div>
     </div>
-    <div class="footer-bar reveal" style="transition-delay:.3s">
+    <div class="footer-bar reveal" style="transition-delay:.25s">
       <div class="footer-name">Sairam Banavathu</div>
       <div class="footer-copy">© 2025 · Built with precision</div>
     </div>
@@ -761,95 +582,53 @@ nav::after{content:'';position:absolute;inset:0;background:linear-gradient(180de
 </section>
 
 <script>
-// ══ CURSOR ══
-const cur = document.getElementById('cur'), cur2 = document.getElementById('cur2');
-let mx=0,my=0,rx=0,ry=0;
-document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.left=mx+'px';cur.style.top=my+'px'});
-setInterval(()=>{rx+=(mx-rx)*.15;ry+=(my-ry)*.15;cur2.style.left=rx+'px';cur2.style.top=ry+'px'},16);
-document.querySelectorAll('a,button').forEach(el=>{el.addEventListener('mouseenter',()=>document.getElementById('cur').style.transform='translate(-50%,-50%) scale(2)');el.addEventListener('mouseleave',()=>document.getElementById('cur').style.transform='translate(-50%,-50%) scale(1)')});
+// Hero entrance
+setTimeout(()=>{
+  document.getElementById('hero-text').classList.add('vis');
+  document.getElementById('hero-photo').classList.add('vis');
+},180);
 
-// ══ INTRO ══
-setTimeout(()=>{document.getElementById('intro').classList.add('out');document.getElementById('hero-text').classList.add('vis');document.getElementById('hero-photo').classList.add('vis');},2400);
-
-// ══ PROGRESS ══
+// Progress bar
 window.addEventListener('scroll',()=>{
-  const s=document.documentElement.scrollTop,h=document.documentElement.scrollHeight-window.innerHeight;
+  const s=window.scrollY,h=document.documentElement.scrollHeight-window.innerHeight;
   document.getElementById('prog').style.width=(s/h*100)+'%';
-});
+},{passive:true});
 
-// ══ NARRATOR SPEECHES ══
-const speeches = {
-  'scene-about':  "Hi! I'm Sairam. I grew up in India, earned two CS degrees, and now I build infrastructure at Meta. Let me walk you through my story...",
-  'scene-exp':    "Three chapters shaped me: Capgemini taught me discipline, Wells Fargo taught me scale, and Meta is where I build things used by billions.",
-  'scene-skills': "Over five years I've sharpened a full-stack engineering toolkit -- from Java microservices to Kubernetes clusters to Datadog dashboards.",
-  'scene-edu':    "Two degrees, two countries. My BTech from India gave me foundations, my MS from UNC Charlotte gave me wings, and AWS certified the flight."
+// Narrator: full text set before bubble fades in — zero flicker
+const NARR={
+  'scene-about': {bub:'bub1',txt:'bt1',speech:"Hi! I'm Sairam. I grew up in India, earned two CS degrees, and now I build infrastructure at Meta. Let me walk you through my story..."},
+  'scene-exp':   {bub:'bub2',txt:'bt2',speech:"Three chapters shaped me: Capgemini taught me discipline, Wells Fargo taught me scale, and Meta is where I build things used by billions."},
+  'scene-skills':{bub:'bub3',txt:'bt3',speech:"Over five years I've sharpened a full-stack engineering toolkit — from Java microservices to Kubernetes clusters to Datadog dashboards."},
+  'scene-edu':   {bub:'bub4',txt:'bt4',speech:"Two degrees, two countries. My BTech from India gave me foundations, my MS from UNC Charlotte gave me wings, and AWS certified the flight."}
 };
+const spoke=new Set();
 
-const bubbleIds = {'scene-about':'bubble','scene-exp':'bubble2','scene-skills':'bubble3','scene-edu':'bubble4'};
-const textIds = {'scene-about':'bubbleText','scene-exp':'bubbleText2','scene-skills':'bubbleText3','scene-edu':'bubbleText4'};
-const bodyIds = {'scene-about':'charBody','scene-exp':'charBody2','scene-skills':'charBody3','scene-edu':'charBody4'};
-
-function typeText(elId, text, cb) {
-  const el = document.getElementById(elId);
-  if(!el) return;
-  el.textContent = ''; // Clear any existing text
-  const chars = Array.from(text);
-  let i = 0;
-  let displayText = ''; // Build text in memory first
-  const t = setInterval(()=>{
-    displayText += chars[i];
-    el.textContent = displayText; // Update with complete text each time
-    i++;
-    if(i >= chars.length) { clearInterval(t); if(cb) cb(); }
-  }, 28);
-}
-
-// ══ INTERSECTION OBSERVER ══
-const io = new IntersectionObserver((entries)=>{
-  entries.forEach(entry=>{
-    if(entry.isIntersecting) {
-      entry.target.classList.add('vis');
-      const sid = entry.target.closest('section')?.id;
-      if(sid && speeches[sid] && !entry.target.dataset.spoke) {
-        entry.target.dataset.spoke = '1';
-        const bub = document.getElementById(bubbleIds[sid]);
-        const bod = document.getElementById(bodyIds[sid]);
-        if(bub) {
-          bub.classList.add('show');
-          if(bod) bod.classList.add('talking');
-          typeText(textIds[sid], speeches[sid], ()=>{ if(bod) bod.classList.remove('talking'); });
-        }
-      }
-    }
+const io=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(!e.isIntersecting) return;
+    e.target.classList.add('vis');
+    const sec=e.target.closest('section');
+    if(!sec||spoke.has(sec.id)||!NARR[sec.id]) return;
+    spoke.add(sec.id);
+    const n=NARR[sec.id];
+    const txt=document.getElementById(n.txt);
+    const bub=document.getElementById(n.bub);
+    if(!txt||!bub) return;
+    txt.textContent=n.speech;          // set text BEFORE showing bubble
+    setTimeout(()=>bub.classList.add('show'),300);
   });
-}, {threshold: 0.1});
+},{threshold:0.15});
 
-// ══ PROGRESS BAR ══
-const prog = document.getElementById('prog');
-window.addEventListener('scroll', () => {
-  const scrolled = (window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100;
-  prog.style.width = scrolled + '%';
-});
+document.querySelectorAll('.reveal,.stat-block,.tl-item,.skill-card,.edu-card,.cert-badge').forEach(el=>io.observe(el));
 
-// ══ CINEMA MODE ══
-let cinemaMode = false;
-document.addEventListener('keydown', e => {
-  if (e.key === 'c') {
-    cinemaMode = !cinemaMode;
-    document.body.classList.toggle('cinema', cinemaMode);
-  }
-});
-
-// ══ INTRO FADE ══
-setTimeout(() => {
-  document.getElementById('intro').classList.add('out');
-}, 3000);
-
-// Observe all section contents for typewriter effect
-document.querySelectorAll('.section-content').forEach(el => io.observe(el));
-
-// Observe all reveal elements for animations
-document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+// Build email at runtime to avoid scraping/obfuscation
+(function(){
+  var u='banavathusairam1',d='gmail.com';
+  var el=document.getElementById('email-link');
+  var val=document.getElementById('email-val');
+  if(el){ el.href='mailto:'+u+'@'+d; }
+  if(val){ val.textContent=u+'@'+d; }
+})();
 
 </script>
 </body>
