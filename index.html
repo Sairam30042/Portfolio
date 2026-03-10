@@ -778,9 +778,9 @@ window.addEventListener('scroll',()=>{
 
 // ══ NARRATOR SPEECHES ══
 const speeches = {
-  'scene-about':  "Hi! I am Sairam. I grew up in India, earned two CS degrees, and now I build infrastructure at Meta. Let me walk you through my story...",
+  'scene-about':  "Hi! I'm Sairam. I grew up in India, earned two CS degrees, and now I build infrastructure at Meta. Let me walk you through my story...",
   'scene-exp':    "Three chapters shaped me: Capgemini taught me discipline, Wells Fargo taught me scale, and Meta is where I build things used by billions.",
-  'scene-skills': "Over five years I have sharpened a full-stack engineering toolkit -- from Java microservices to Kubernetes clusters to Datadog dashboards.",
+  'scene-skills': "Over five years I've sharpened a full-stack engineering toolkit -- from Java microservices to Kubernetes clusters to Datadog dashboards.",
   'scene-edu':    "Two degrees, two countries. My BTech from India gave me foundations, my MS from UNC Charlotte gave me wings, and AWS certified the flight."
 };
 
@@ -791,11 +791,12 @@ const bodyIds = {'scene-about':'charBody','scene-exp':'charBody2','scene-skills'
 function typeText(elId, text, cb) {
   const el = document.getElementById(elId);
   el.textContent = '';
+  const chars = Array.from(text); // Properly handle Unicode characters
   let i = 0;
   const t = setInterval(()=>{
-    el.textContent += text[i];
+    el.textContent += chars[i];
     i++;
-    if(i >= text.length) { clearInterval(t); if(cb) cb(); }
+    if(i >= chars.length) { clearInterval(t); if(cb) cb(); }
   }, 28);
 }
 
