@@ -30,9 +30,9 @@ body{background:var(--black);color:var(--white);font-family:var(--serif);overflo
 #cur2{position:fixed;width:40px;height:40px;border:1px solid rgba(212,168,67,.3);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:all .3s ease}
 
 /* FILM GRAIN */
-body::before{content:'';position:fixed;inset:0;z-index:8000;pointer-events:none;opacity:.02;
+body::before{content:'';position:fixed;inset:0;z-index:8000;pointer-events:none;opacity:.04;
   background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
-  animation:grain 8s linear infinite}
+  animation:grain 0.5s steps(1) infinite}
 @keyframes grain{0%,100%{transform:translate(0,0)}10%{transform:translate(-2%,-3%)}20%{transform:translate(3%,2%)}30%{transform:translate(-1%,4%)}40%{transform:translate(2%,-1%)}50%{transform:translate(-3%,3%)}60%{transform:translate(1%,-2%)}70%{transform:translate(-2%,1%)}80%{transform:translate(3%,-3%)}90%{transform:translate(-1%,2%)}}
 
 /* CINEMATIC BARS */
@@ -44,7 +44,7 @@ body.cinema .cinema-bar-top,.cinema .cinema-bar-bot{transform:translateY(0)}
 #prog{position:fixed;top:0;left:0;height:2px;background:linear-gradient(90deg,var(--gold),var(--gold2));z-index:9000;width:0;transition:width .1s}
 
 /* ══════════ INTRO / LOADING ══════════ */
-#intro{position:fixed;inset:0;z-index:6000;background:var(--black);display:flex;flex-direction:column;align-items:center;justify-content:center;transition:opacity 1s ease;opacity:1}
+#intro{position:fixed;inset:0;z-index:6000;background:var(--black);display:flex;flex-direction:column;align-items:center;justify-content:center;transition:opacity 1s ease}
 #intro.out{opacity:0;pointer-events:none}
 .intro-logo{font-family:var(--bebas);font-size:clamp(4rem,10vw,9rem);letter-spacing:.15em;color:transparent;-webkit-text-stroke:1px var(--gold);animation:logopulse 2s ease-in-out infinite}
 @keyframes logopulse{0%,100%{opacity:.6}50%{opacity:1}}
@@ -146,8 +146,7 @@ nav::after{content:'';position:absolute;inset:0;background:linear-gradient(180de
 .tl-role{font-family:var(--mono);font-size:.58rem;color:var(--gold);letter-spacing:.12em;text-transform:uppercase;margin-bottom:.7rem}
 .tl-desc{font-family:var(--serif);font-size:.95rem;line-height:1.7;color:var(--silver);font-weight:300}
 .tl-tags{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:.8rem}
-.tl-tag{font-family:var(--mono);font-size:.5rem;padding:.3rem .7rem;border:1px solid rgba(212,168,67,.2);color:rgba(212,168,67,.7);letter-spacing:.1em;text-transform:uppercase;cursor:pointer;transition:all .3s ease}
-.tl-tag:hover{border-color:var(--gold);color:var(--gold);background:rgba(212,168,67,.1);box-shadow:0 0 8px rgba(212,168,67,.3)}
+.tl-tag{font-family:var(--mono);font-size:.5rem;padding:.3rem .7rem;border:1px solid rgba(212,168,67,.2);color:rgba(212,168,67,.7);letter-spacing:.1em;text-transform:uppercase}
 
 /* SKILLS GRID */
 .skills-grid{margin-top:2.5rem;display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1.5rem}
@@ -791,14 +790,11 @@ const bodyIds = {'scene-about':'charBody','scene-exp':'charBody2','scene-skills'
 
 function typeText(elId, text, cb) {
   const el = document.getElementById(elId);
-  if(!el) return;
-  el.textContent = ''; // Clear any existing text
-  const chars = Array.from(text);
+  el.textContent = '';
+  const chars = Array.from(text); // Properly handle Unicode characters
   let i = 0;
-  let displayText = ''; // Build text in memory first
   const t = setInterval(()=>{
-    displayText += chars[i];
-    el.textContent = displayText; // Update with complete text each time
+    el.textContent += chars[i];
     i++;
     if(i >= chars.length) { clearInterval(t); if(cb) cb(); }
   }, 28);
