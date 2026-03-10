@@ -818,7 +818,7 @@ const io = new IntersectionObserver((entries)=>{
       }
     }
   });
-});
+}, {threshold: 0.1});
 
 // ══ PROGRESS BAR ══
 const prog = document.getElementById('prog');
@@ -840,6 +840,12 @@ document.addEventListener('keydown', e => {
 setTimeout(() => {
   document.getElementById('intro').classList.add('out');
 }, 3000);
+
+// Observe all section contents for typewriter effect
+document.querySelectorAll('.section-content').forEach(el => io.observe(el));
+
+// Observe all reveal elements for animations
+document.querySelectorAll('.reveal').forEach(el => io.observe(el));
 
 </script>
 </body>
